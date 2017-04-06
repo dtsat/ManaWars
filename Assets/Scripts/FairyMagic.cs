@@ -23,12 +23,12 @@ public class FairyMagic : MonoBehaviour {
 		fairyshieldtimer -= (Time.deltaTime) * 1;
 
 		if (fairyshieldtimer <= 0) {
-			wizPosition = new Vector3 (Wizard.transform.position.x, (Wizard.transform.position.y + 1), (Wizard.transform.position.z));
+			wizPosition = new Vector3 (Wizard.transform.position.x, (Wizard.transform.position.y), (Wizard.transform.position.z));
 			wizRotation = Quaternion.LookRotation (Wizard.transform.position, Vector3.up);
 			Shield.transform.position = wizPosition;
-			offsetShield = new Vector3(Shield.transform.position.x, Shield.transform.position.y + 0.5f, Shield.transform.position.z + 2);
-			Shield.transform.rotation = Quaternion.RotateTowards (transform.rotation, wizRotation, 999999f);
-			Shield.transform.position = offsetShield;
+			//offsetShield = new Vector3(Shield.transform.position.x, Shield.transform.position.y + 0.5f, Shield.transform.position.z + 2);
+			//Shield.transform.rotation = Quaternion.RotateTowards (transform.rotation, wizRotation, 999999f);
+			//Shield.transform.position = offsetShield;
 			Instantiate (Shield);
 			fairyshieldtimer = 6;
 		}
