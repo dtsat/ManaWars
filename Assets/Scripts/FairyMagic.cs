@@ -12,10 +12,7 @@ public class FairyMagic : MonoBehaviour {
 	float distFromWiz;
 	public GameObject Shield;
 	public GameObject FairyShot;
-	public GameObject FairyHeal;
-	public Vector3 offsetHeal;
-
-	public GameObject SpeedEffect;
+	public Vector3 offsetShield;
 
 	public Collider NearDome;
 
@@ -70,9 +67,6 @@ public class FairyMagic : MonoBehaviour {
 						Wizard.GetComponent<Human_Wizard> ().speed = 10;
 						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
 
-						SpeedEffect.transform.position = wizPosition;
-						Instantiate (SpeedEffect);
-
 						fairyshieldtimer -= 5;
 						i = hitColliders.Length;
 					}
@@ -97,11 +91,6 @@ public class FairyMagic : MonoBehaviour {
 			if(fairyshieldtimer >= 10){
 				if(Wizard.GetComponent<Human_Wizard>().health < 100){
 					Wizard.GetComponent<Human_Wizard>().health += 5;
-
-					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
-
-					FairyHeal.transform.position = offsetHeal;
-					Instantiate (FairyHeal);
 
 					if(Wizard.GetComponent<Human_Wizard>().health > 100){
 						Wizard.GetComponent<Human_Wizard>().health = 100;
