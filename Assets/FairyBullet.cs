@@ -43,7 +43,7 @@ public class FairyBullet : MonoBehaviour {
 
 
 		if (targetAssigned) {
-			float dot = Vector3.Dot (transform.forward, (targetNode.transform.position - transform.position).normalized);
+			//float dot = Vector3.Dot (transform.forward, (targetNode.transform.position - transform.position).normalized);
 			GetComponent<Rigidbody> ().velocity = ((targetNode.transform.position - transform.position).normalized * speed);
 			goalFacing = (targetNode.transform.position - transform.position).normalized;
 			lookWhereYoureGoing = Quaternion.LookRotation (goalFacing, Vector3.up);

@@ -23,6 +23,8 @@ public class FairyMagic : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		fairyshieldtimer = 10f;
 		//StartCoroutine(PresenceCheck());
 	}
 
