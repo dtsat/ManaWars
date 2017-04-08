@@ -22,10 +22,10 @@ public class Monster : MonoBehaviour {
         {
             slotCount = 4;
             slotPositions = new Vector3[4];
-            slotPositions[0] = transform.position + new Vector3(0, 0, 10);
-            slotPositions[1] = transform.position + new Vector3(0, 0, -10);
-            slotPositions[2] = transform.position + new Vector3(10, 0, 0);
-            slotPositions[3] = transform.position + new Vector3(-10, 0, 0);
+            slotPositions[0] = transform.position + new Vector3(0, 0, 6);
+            slotPositions[1] = transform.position + new Vector3(0, 0, -6);
+            slotPositions[2] = transform.position + new Vector3(6, 0, 0);
+            slotPositions[3] = transform.position + new Vector3(-6, 0, 0);
         }
 	}
 
@@ -39,10 +39,10 @@ public class Monster : MonoBehaviour {
                 if(distance < 200.0f)
                 {
                     agent.SetDestination(player.transform.position);
-                    slotPositions[0] = transform.position + new Vector3(0, 0, 10);
-                    slotPositions[1] = transform.position + new Vector3(0, 0, -10);
-                    slotPositions[2] = transform.position + new Vector3(10, 0, 0);
-                    slotPositions[3] = transform.position + new Vector3(-10, 0, 0);
+                    slotPositions[0] = transform.position + new Vector3(0, 0, 6);
+                    slotPositions[1] = transform.position + new Vector3(0, 0, -6);
+                    slotPositions[2] = transform.position + new Vector3(6, 0, 0);
+                    slotPositions[3] = transform.position + new Vector3(-6, 0, 0);
                 }
             }
             else
