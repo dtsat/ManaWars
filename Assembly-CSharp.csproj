@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FairyBullet.cs" />
      <Compile Include="Assets\Scripts\AbstractCharacter.cs" />
      <Compile Include="Assets\Scripts\CompanionFollow.cs" />
      <Compile Include="Assets\Scripts\Crosshair.cs" />
@@ -56,6 +57,8 @@
      <Compile Include="Assets\Scripts\TestBullet.cs" />
      <Compile Include="Assets\Scripts\Test_Spell.cs" />
      <Compile Include="Assets\Scripts\WizardAnimation.cs" />
+     <Compile Include="Assets\SimpleMove.cs" />
+     <Compile Include="Assets\WizardStats.cs" />
      <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
      <None Include="Assets\Models\Toon Wizard\Read me.txt" />
  <Reference Include="UnityEngine.UI">

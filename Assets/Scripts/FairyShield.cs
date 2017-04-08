@@ -12,10 +12,30 @@ public class FairyShield : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		lifetime -= (Time.deltaTime) * 2;
+		lifetime -= (Time.deltaTime) * 1;
+
+		Collider[] hitColliders = Physics.OverlapSphere (transform.position, 2.5f);
+		int i = 0;
+
+		while (i < hitColliders.Length) {
+			if (hitColliders [i].tag == "EnemySpell") {
+				Destroy (hitColliders [i].gameObject);
+				Destroy (gameObject);
+
+			}
+			i++;
+		}
 
 		if (lifetime <= 0) {
-			GameObject.Destroy (gameObject);
+			Destroy (gameObject);
+		}
+
+
+	}
+
+	public void onTriggerEnter(Collider other){
+		if (other.tag == "EnemySpell") {
+			Destroy (other.gameObject);
 		}
 	}
 }

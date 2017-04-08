@@ -17,6 +17,8 @@ public class Human_Wizard : AbstractCharacter {
 	{
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
+
+		health = 100;
 	}
 	
 
