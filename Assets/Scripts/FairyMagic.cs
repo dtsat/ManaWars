@@ -63,6 +63,10 @@ public class FairyMagic : MonoBehaviour {
 				while (i < hitColliders.Length) {
 					if (hitColliders [i].tag == "Enemy") {
 						//Speedboost code here!
+
+						Wizard.GetComponent<Human_Wizard> ().speed = 10;
+						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
+
 						fairyshieldtimer -= 5;
 						i = hitColliders.Length;
 					}

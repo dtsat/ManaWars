@@ -12,6 +12,8 @@ public class Human_Wizard : AbstractCharacter {
 	public GameObject crosshair;
 	public GameObject testbullet;
 
+	public float speedboostTimer = 3f;
+	public bool isSpeedBoosted = false;
 
 	void Start () 
 	{
@@ -42,6 +44,16 @@ public class Human_Wizard : AbstractCharacter {
 				Debug.DrawLine (mainCamera.transform.position, crosshair.transform.position, Color.cyan, 20f, false);
 			}
 		}
-	
+
+
+		if (isSpeedBoosted == true) {
+			speedboostTimer -= (Time.deltaTime) * 1;
+
+			if (speedboostTimer <= 0) {
+				speed = 5;
+				isSpeedBoosted = false;
+				speedboostTimer = 3;
+			}
+		}
 	}
 }
