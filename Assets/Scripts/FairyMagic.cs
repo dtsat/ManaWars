@@ -12,7 +12,10 @@ public class FairyMagic : MonoBehaviour {
 	float distFromWiz;
 	public GameObject Shield;
 	public GameObject FairyShot;
-	public Vector3 offsetShield;
+	public GameObject FairyHeal;
+	public Vector3 offsetHeal;
+
+	public GameObject SpeedEffect;
 
 	public Collider NearDome;
 
@@ -24,10 +27,10 @@ public class FairyMagic : MonoBehaviour {
 	}
 
 	IEnumerator PresenceCheck(){
-		
+
 		yield return new WaitForSeconds (1f);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -38,7 +41,7 @@ public class FairyMagic : MonoBehaviour {
 		if (fairyshieldtimer >= 10) {
 			fairyshieldtimer = 10;
 			//if ( enemyspell is nearby){
-		//}
+			//}
 			wizPosition = new Vector3 (WizardPos.transform.position.x, (WizardPos.transform.position.y), (WizardPos.transform.position.z));
 			wizRotation = Quaternion.LookRotation (WizardPos.transform.position, Vector3.up);
 
@@ -67,6 +70,9 @@ public class FairyMagic : MonoBehaviour {
 						Wizard.GetComponent<Human_Wizard> ().speed = 10;
 						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
 
+						SpeedEffect.transform.position = wizPosition;
+						Instantiate (SpeedEffect);
+
 						fairyshieldtimer -= 5;
 						i = hitColliders.Length;
 					}
@@ -91,6 +97,11 @@ public class FairyMagic : MonoBehaviour {
 			if(fairyshieldtimer >= 10){
 				if(Wizard.GetComponent<Human_Wizard>().health < 100){
 					Wizard.GetComponent<Human_Wizard>().health += 5;
+
+					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
+
+					FairyHeal.transform.position = offsetHeal;
+					Instantiate (FairyHeal);
 
 					if(Wizard.GetComponent<Human_Wizard>().health > 100){
 						Wizard.GetComponent<Human_Wizard>().health = 100;

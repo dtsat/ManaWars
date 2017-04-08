@@ -53,14 +53,18 @@
      <Compile Include="Assets\Scripts\FairyShield.cs" />
      <Compile Include="Assets\Scripts\FireSpell.cs" />
      <Compile Include="Assets\Scripts\Human_Wizard.cs" />
+     <Compile Include="Assets\Scripts\LifetimeObject.cs" />
+     <Compile Include="Assets\Scripts\Monster.cs" />
      <Compile Include="Assets\Scripts\Spell.cs" />
      <Compile Include="Assets\Scripts\TestBullet.cs" />
      <Compile Include="Assets\Scripts\Test_Spell.cs" />
      <Compile Include="Assets\Scripts\WizardAnimation.cs" />
      <Compile Include="Assets\SimpleMove.cs" />
      <Compile Include="Assets\WizardStats.cs" />
+     <None Include="Assets\Models\Battleground Forest\Read me.txt" />
      <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
      <None Include="Assets\Models\Toon Wizard\Read me.txt" />
+     <None Include="Assets\Models\Toon Treant\Read me.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
