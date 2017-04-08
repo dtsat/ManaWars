@@ -39,10 +39,10 @@ public class Monster : MonoBehaviour {
                 if(distance < 200.0f)
                 {
                     agent.SetDestination(player.transform.position);
-                    slotPositions[0] = transform.position + new Vector3(0, 0, 5);
-                    slotPositions[1] = transform.position + new Vector3(0, 0, -5);
-                    slotPositions[2] = transform.position + new Vector3(5, 0, 0);
-                    slotPositions[3] = transform.position + new Vector3(-5, 0, 0);
+                    slotPositions[0] = transform.position + new Vector3(0, 0, 10);
+                    slotPositions[1] = transform.position + new Vector3(0, 0, -10);
+                    slotPositions[2] = transform.position + new Vector3(10, 0, 0);
+                    slotPositions[3] = transform.position + new Vector3(-10, 0, 0);
                 }
             }
             else
