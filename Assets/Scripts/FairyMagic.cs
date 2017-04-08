@@ -86,6 +86,7 @@ public class FairyMagic : MonoBehaviour {
 					if (ShotTargetCollider [j].tag == "Enemy") {
 						FairyShot.transform.position = transform.position;
 						Instantiate (FairyShot);
+						FairyShot.GetComponent<FairyBullet>().SetTarget(ShotTargetCollider[j].gameObject);
 						fairyshieldtimer -= 3;
 						j = hitColliders.Length;
 
