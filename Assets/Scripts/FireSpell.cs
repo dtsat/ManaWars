@@ -4,11 +4,12 @@ using System.Collections;
 public class FireSpell : Spell {
 
     public GameObject fireBall;
-    GameObject castedSpell;
+	public Transform wand;
+	private GameObject castedSpell;
 
     public override void fire()
     {
-        castedSpell = (GameObject)Instantiate(fireBall, transform.position + (transform.forward * 2)+(transform.up * 1), transform.rotation);
+		castedSpell = Instantiate (fireBall, wand.position, wand.rotation) as GameObject;
     }
 
     void OnMouseDown()

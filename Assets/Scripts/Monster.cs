@@ -14,6 +14,8 @@ public class Monster : MonoBehaviour {
     Monster leaderScript;
     Animator animator;
 
+	bool isDead = false;
+
 	//AI variables
 	float distToPlayer;
 	public GameObject monsterBullet;
@@ -176,16 +178,21 @@ public class Monster : MonoBehaviour {
     {
         if (other.tag == "PlayerSpell")
         {
-            health -= 10;
+			if (isDead) {
+				Destroy (other.gameObject);
+				return;
+			}
+			health -= 10;
             if (health > 0)
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Take Damage");
             }
-            else
+			else
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Die");
+				isDead = true;
             }
-            Destroy(other.gameObject);
+			other.GetComponent<FireBallMovement> ().explode ();
         }
     }
 }

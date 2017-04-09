@@ -65,11 +65,12 @@ public class Human_Wizard : AbstractCharacter {
             transform.Rotate(new Vector3(0.0f, 5f, 0.0f));
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(mainCamera.transform.position, crosshair.transform.position, out hit))
-            {
-                Debug.DrawLine(mainCamera.transform.position, crosshair.transform.position, Color.cyan, 20f, false);
-            }
+			leftSpell.fire ();
         }
+		if (Input.GetMouseButtonDown(1))
+		{
+			rightSpell.fire ();
+		}
 
 
         if (isSpeedBoosted == true)
