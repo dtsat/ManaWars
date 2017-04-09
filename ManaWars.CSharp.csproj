@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\FairyShield.cs" />
     <Compile Include="Assets\Scripts\FireSpell.cs" />
     <Compile Include="Assets\Scripts\Human_Wizard.cs" />
+    <Compile Include="Assets\Scripts\LifetimeObject.cs" />
     <Compile Include="Assets\Scripts\Monster.cs" />
     <Compile Include="Assets\Scripts\Spell.cs" />
     <Compile Include="Assets\Scripts\TestBullet.cs" />
