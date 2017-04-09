@@ -106,7 +106,8 @@ public class FairyMagic : MonoBehaviour {
 			}
 
 			if(fairyshieldtimer >= 10){
-				if(Wizard.GetComponent<Human_Wizard>().health < 100){
+				if(Wizard.GetComponent<Human_Wizard>().health < 100 && Wizard.GetComponent<Human_Wizard>().health > 0)
+                {
 					Wizard.GetComponent<Human_Wizard>().health += 5;
 
 					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);

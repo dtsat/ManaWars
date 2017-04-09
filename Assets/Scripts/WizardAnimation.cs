@@ -11,11 +11,13 @@ public class WizardAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Death();
-        Movement();
-        Jump();
-        Fire();
-        Victory();
+        if(gameObject.GetComponent<Human_Wizard>().health > 0)
+        {
+            Movement();
+            Jump();
+            Fire();
+            Victory();
+        }
     }
 
     void Movement()
@@ -43,12 +45,6 @@ public class WizardAnimation : MonoBehaviour {
     {
         bool fire = Input.GetMouseButtonDown(0);
         animator.SetBool("Fire", fire);
-    }
-
-    void Death()
-    {
-        bool death = Input.GetMouseButtonDown(1);
-        animator.SetBool("Death", death);
     }
 
     void Victory()

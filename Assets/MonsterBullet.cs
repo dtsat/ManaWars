@@ -68,8 +68,14 @@ public class MonsterBullet : MonoBehaviour {
 		if (other.tag == "Player") {
 			Debug.Log ("Damaged!");
 			player.GetComponent<Human_Wizard>().health -= 10;
-            player.GetComponent<Animator>().SetTrigger("Damaged");
-			//Destroy (targetNode);
+            if(player.GetComponent<Human_Wizard>().health > 0)
+            {
+                player.GetComponent<Animator>().SetTrigger("Damaged");
+            }
+            else
+            {
+                player.GetComponent<Animator>().SetTrigger("Death");
+            }
 			Destroy (gameObject);
 		}
 	}
