@@ -16,7 +16,6 @@ public class WizardAnimation : MonoBehaviour {
             Movement();
             Jump();
             Fire();
-            Victory();
         }
     }
 
@@ -49,7 +48,6 @@ public class WizardAnimation : MonoBehaviour {
 
     void Victory()
     {
-        bool victory = Input.GetButtonDown("Submit");
-        animator.SetBool("Victory", victory);
+        animator.SetTrigger("Victory");
     }
 }

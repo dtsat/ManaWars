@@ -32,6 +32,23 @@ public class Human_Wizard : AbstractCharacter {
         }
 	}
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EnemySpell")
+        {
+            health -= 10;
+            if (health > 0)
+            {
+                gameObject.GetComponent<Animator>().SetTrigger("Damaged");
+            }
+            else
+            {
+                gameObject.GetComponent<Animator>().SetTrigger("Death");
+            }
+            Destroy(other.gameObject);
+        }
+    }
+
     void Move()
     {
         if (Input.GetKey(KeyCode.W))

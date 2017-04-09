@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour {
     bool inGroup;
     GameObject closestLeader;
     Monster leaderScript;
-
+    Animator animator;
 
 	//AI variables
 	float distToPlayer;
@@ -28,8 +28,9 @@ public class Monster : MonoBehaviour {
     void Start () {
         agent = GetComponent<NavMeshAgent>();
         openSlots = new GameObject[4];
+        animator = gameObject.GetComponent<Animator>();
 
-        if(tag == "MobLeader")
+        if (tag == "MobLeader")
         {
             slotCount = 4;
             slotPositions = new Vector3[4];
@@ -72,7 +73,7 @@ public class Monster : MonoBehaviour {
 					monsterBullet.transform.position = offsetShot;
 					Instantiate (monsterBullet);
 					monsterBullet.GetComponent<MonsterBullet> ().SetTarget (player);
-
+                    animator.SetTrigger("Projectile Attack");
 					//instantiate enemy bullet
 					//Enemy bullet script will autograb the player's location and home in on it.
 				}
