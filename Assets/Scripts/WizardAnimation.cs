@@ -12,7 +12,6 @@ public class WizardAnimation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Death();
-        Damaged();
         Movement();
         Jump();
         Fire();
@@ -50,12 +49,6 @@ public class WizardAnimation : MonoBehaviour {
     {
         bool death = Input.GetMouseButtonDown(1);
         animator.SetBool("Death", death);
-    }
-
-    void Damaged()
-    {
-        bool damaged = Input.GetMouseButtonDown(2);
-        animator.SetBool("Damaged", damaged);
     }
 
     void Victory()
