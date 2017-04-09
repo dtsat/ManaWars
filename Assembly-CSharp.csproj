@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\FairyBullet.cs" />
+     <Compile Include="Assets\MonsterBullet.cs" />
      <Compile Include="Assets\Scripts\AbstractCharacter.cs" />
      <Compile Include="Assets\Scripts\CompanionFollow.cs" />
      <Compile Include="Assets\Scripts\Crosshair.cs" />

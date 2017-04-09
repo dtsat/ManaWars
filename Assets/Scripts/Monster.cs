@@ -13,6 +13,17 @@ public class Monster : MonoBehaviour {
     GameObject closestLeader;
     Monster leaderScript;
 
+
+	//AI variables
+	float distToPlayer;
+	public GameObject monsterBullet;
+	public float ShootTimer = 0f;
+	public float ShootRate = 4f;
+
+	public Vector3 offsetShot;
+	//public float formBonus = 2f //Make enemies shoot faster whie in formation.
+
+
     // Use this for initialization
     void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -52,12 +63,33 @@ public class Monster : MonoBehaviour {
         }
         else if (tag == "MobRanged")
         {
+			//If in range, fire bullets
+			distToPlayer = (player.transform.position - transform.position).magnitude;
+
+			if (distToPlayer <= 10) {
+				ShootTimer += (Time.deltaTime) * 1;
+
+				if (ShootTimer >= ShootRate) {
+					ShootTimer = 0f;
+
+					offsetShot = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z);
+					monsterBullet.transform.position = offsetShot;
+					Instantiate (monsterBullet);
+					monsterBullet.GetComponent<MonsterBullet> ().SetTarget (player);
+
+					//instantiate enemy bullet
+					//Enemy bullet script will autograb the player's location and home in on it.
+				}
+
+			}
+
             if (!inGroup)
             {
                 FindGroup();
             }
             else
             {
+
                 agent.SetDestination(leaderScript.slotPositions[slotCount]);
             }
         }
