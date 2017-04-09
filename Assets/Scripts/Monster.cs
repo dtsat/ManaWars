@@ -19,6 +19,8 @@ public class Monster : MonoBehaviour {
 	public GameObject monsterBullet;
 	public float ShootTimer = 0f;
 	public float ShootRate = 4f;
+    int health;
+
 
 	public Vector3 offsetShot;
 	//public float formBonus = 2f //Make enemies shoot faster whie in formation.
@@ -29,6 +31,7 @@ public class Monster : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         openSlots = new GameObject[4];
         animator = gameObject.GetComponent<Animator>();
+        health = 100;
 
         if (tag == "MobLeader")
         {
@@ -43,62 +46,67 @@ public class Monster : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (tag == "MobLeader")
+        if(health > 0)
         {
-            if(slotCount == 0)
+            if (tag == "MobLeader")
             {
-                float distance = MinionDistance();
-                if(distance < 200.0f)
+                if (slotCount == 0)
                 {
-                    agent.SetDestination(player.transform.position);
+                    float distance = MinionDistance();
+                    if (distance < 200.0f)
+                    {
+                        agent.SetDestination(player.transform.position);
+                    }
+                }
+                else
+                {
+                    //Wander
                 }
             }
-            else
+            else if (tag == "MobRanged")
             {
-                //Wander
+                //If in range, fire bullets
+                distToPlayer = (player.transform.position - transform.position).magnitude;
+
+                if (distToPlayer <= 10)
+                {
+                    ShootTimer += (Time.deltaTime) * 1;
+
+                    if (ShootTimer >= ShootRate)
+                    {
+                        ShootTimer = 0f;
+
+                        offsetShot = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+                        monsterBullet.transform.position = offsetShot;
+                        Instantiate(monsterBullet);
+                        monsterBullet.GetComponent<MonsterBullet>().SetTarget(player);
+                        animator.SetTrigger("Projectile Attack");
+                        //instantiate enemy bullet
+                        //Enemy bullet script will autograb the player's location and home in on it.
+                    }
+
+                }
+
+                if (!inGroup)
+                {
+                    FindGroup();
+                }
+                else
+                {
+
+                    agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
+                }
             }
-        }
-        else if (tag == "MobRanged")
-        {
-			//If in range, fire bullets
-			distToPlayer = (player.transform.position - transform.position).magnitude;
-
-			if (distToPlayer <= 10) {
-				ShootTimer += (Time.deltaTime) * 1;
-
-				if (ShootTimer >= ShootRate) {
-					ShootTimer = 0f;
-
-					offsetShot = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z);
-					monsterBullet.transform.position = offsetShot;
-					Instantiate (monsterBullet);
-					monsterBullet.GetComponent<MonsterBullet> ().SetTarget (player);
-                    animator.SetTrigger("Projectile Attack");
-					//instantiate enemy bullet
-					//Enemy bullet script will autograb the player's location and home in on it.
-				}
-
-			}
-
-            if (!inGroup)
+            else if (tag == "MobMelee")
             {
-                FindGroup();
-            }
-            else
-            {
-
-                agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
-            }
-        }
-        else if (tag == "MobMelee")
-        {
-            if (!inGroup)
-            {
-                FindGroup();
-            }
-            else
-            {
-                agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
+                if (!inGroup)
+                {
+                    FindGroup();
+                }
+                else
+                {
+                    agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
+                }
             }
         }
     }
@@ -162,5 +170,22 @@ public class Monster : MonoBehaviour {
             }
         }
         return closest;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "PlayerSpell")
+        {
+            health -= 10;
+            if (health > 0)
+            {
+                gameObject.GetComponent<Animator>().SetTrigger("Take Damage");
+            }
+            else
+            {
+                gameObject.GetComponent<Animator>().SetTrigger("Die");
+            }
+            Destroy(other.gameObject);
+        }
     }
 }
