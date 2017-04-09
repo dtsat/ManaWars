@@ -10,7 +10,7 @@ public class FairyBullet : MonoBehaviour {
 	public float lifetime = 4f;
 
 	float distFromTarget;
-	float speed = 5.0f;
+	float speed = 7.0f;
 	float radius = 0.11f;
 	Vector3 goalFacing;
 	Quaternion lookWhereYoureGoing;

@@ -15,6 +15,8 @@ public class FairyMagic : MonoBehaviour {
 	public GameObject FairyHeal;
 	public Vector3 offsetHeal;
 
+	public float DistToWiz;
+
 	public GameObject SpeedEffect;
 
 	public Collider NearDome;
@@ -36,9 +38,15 @@ public class FairyMagic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (fairyshieldtimer < 10) {
-			fairyshieldtimer += (Time.deltaTime) * 1;
+		distFromWiz = (WizardPos.transform.position - transform.position).magnitude;
+
+		if (distFromWiz <= 5) {
+			if (fairyshieldtimer < 10) {
+				fairyshieldtimer += (Time.deltaTime) * 1;
+			}
 		}
+
+
 
 		if (fairyshieldtimer >= 10) {
 			fairyshieldtimer = 10;
