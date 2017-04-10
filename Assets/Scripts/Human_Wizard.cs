@@ -52,6 +52,21 @@ public class Human_Wizard : AbstractCharacter {
             }
             Destroy(other.gameObject);
         }
+
+		if (other.tag == "MeleeAttack")
+		{
+			health -= 10;
+			score.GetComponent<Score>().UpdateHealth();
+			if (health > 0)
+			{
+				gameObject.GetComponent<Animator>().SetTrigger("Damaged");
+			}
+			else
+			{
+				gameObject.GetComponent<Animator>().SetTrigger("Death");
+			}
+			Destroy(other.gameObject);
+		}
     }
 
     void Move()

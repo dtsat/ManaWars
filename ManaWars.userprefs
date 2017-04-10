@@ -4,7 +4,9 @@
     <Files>
       <File FileName="Assets\Scripts\FireSpell.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\FireBallMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Monster.cs" Line="135" Column="6" />
+      <File FileName="Assets\Scripts\Monster.cs" Line="161" Column="26" />
+      <File FileName="Assets\Scripts\Human_Wizard.cs" Line="68" Column="28" />
+      <File FileName="Assets\Ground.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

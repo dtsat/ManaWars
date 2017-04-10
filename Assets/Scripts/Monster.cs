@@ -23,6 +23,9 @@ public class Monster : MonoBehaviour {
 	public float ShootTimer = 0f;
 	public float ShootRate = 4f;
     int health;
+	public float MeleeTimer = 2f;
+
+	public GameObject MeleeStrike;
 
 
 	public Vector3 offsetShot;
@@ -31,6 +34,7 @@ public class Monster : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		
         agent = GetComponent<NavMeshAgent>();
         openSlots = new GameObject[4];
         animator = gameObject.GetComponent<Animator>();
@@ -46,6 +50,24 @@ public class Monster : MonoBehaviour {
             slotPositions[2] = new Vector3(6, 0, 0);
             slotPositions[3] = new Vector3(-6, 0, 0);
         }
+	}
+
+	IEnumerator ShockWave(){
+
+		agent.Stop ();
+
+		animator.SetTrigger("Shockwave Attack");
+
+		yield return new WaitForSeconds (0.75f);
+
+		MeleeStrike.transform.position = transform.position;
+		MeleeStrike.transform.rotation = transform.rotation;
+		Instantiate (MeleeStrike);
+
+		yield return new WaitForSeconds (1f);
+
+		agent.Resume ();
+
 	}
 
     // Update is called once per frame
@@ -111,14 +133,16 @@ public class Monster : MonoBehaviour {
 
 				if (!inGroup)
 				{
-					FindGroup();
+					
+					distToPlayer = (player.transform.position - transform.position).magnitude;
 
-					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
-
-					if (distFromLeader <= 20) {
-						Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
+					if (distToPlayer <= 20) {
+						Debug.Log ("I SEE YOU, PLAYER!");
+						agent.SetDestination(player.transform.position);
 						//chase player
 					}
+
+					FindGroup();
 				}
 				else
 				{
@@ -131,6 +155,20 @@ public class Monster : MonoBehaviour {
 
 						agent.SetDestination(player.transform.position);
 						//chase player
+					}
+				}
+
+				if (distToPlayer <= 6f) {
+					Debug.Log ("I ATTACKED YOU!");
+
+					if (MeleeTimer >= 0) {
+						MeleeTimer -= (Time.deltaTime) * 1;
+					}
+
+					if (MeleeTimer <= 0) {
+
+						StartCoroutine (ShockWave ());
+						MeleeTimer = 2f;
 					}
 				}
             }
