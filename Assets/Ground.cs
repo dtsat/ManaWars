@@ -16,6 +16,13 @@ public class Ground : MonoBehaviour {
 		{
 			onFire = true;
 			Instantiate (flames, this.transform.position, flames.transform.rotation);
+			StartCoroutine (reset ());
 		}
+	}
+
+	IEnumerator reset()
+	{
+		yield return new WaitForSeconds (10f);
+		onFire = false;
 	}
 }
