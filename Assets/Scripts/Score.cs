@@ -5,14 +5,14 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour {
     Text textBox;
     Human_Wizard player;
-    int score = 0;
-    int livingMobs = 0;
+    public int score = 0;
+    public int livingMobs = 0;
     GameObject[] LeaderMobs;
     GameObject[] RangedMobs;
     GameObject[] MeleeMobs;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         textBox = gameObject.GetComponent<Text>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Human_Wizard>();
         LeaderMobs = GameObject.FindGameObjectsWithTag("MobLeader");

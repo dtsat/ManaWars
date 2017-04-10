@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Crosshair.cs" />
     <Compile Include="Assets\Scripts\FairyMagic.cs" />
     <Compile Include="Assets\Scripts\FairyShield.cs" />
+    <Compile Include="Assets\Scripts\FinalScore.cs" />
     <Compile Include="Assets\Scripts\FireBallMovement.cs" />
     <Compile Include="Assets\Scripts\FireSpell.cs" />
     <Compile Include="Assets\Scripts\Human_Wizard.cs" />

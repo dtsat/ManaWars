@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Human_Wizard : AbstractCharacter {
 
@@ -48,6 +49,9 @@ public class Human_Wizard : AbstractCharacter {
             }
             else
             {
+                PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
+                PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
+                SceneManager.LoadScene(2);
                 gameObject.GetComponent<Animator>().SetTrigger("Death");
             }
             Destroy(other.gameObject);
@@ -64,7 +68,10 @@ public class Human_Wizard : AbstractCharacter {
 			}
 			else
 			{
-				gameObject.GetComponent<Animator>().SetTrigger("Death");
+                PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
+                PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
+                SceneManager.LoadScene(2);
+                gameObject.GetComponent<Animator>().SetTrigger("Death");
 			}
 			Destroy(other.gameObject);
 		}
