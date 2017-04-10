@@ -103,14 +103,36 @@ public class Monster : MonoBehaviour {
             }
             else if (tag == "MobMelee")
             {
-                if (!inGroup)
-                {
-                    FindGroup();
-                }
-                else
-                {
-                    agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
-                }
+				distToPlayer = (player.transform.position - transform.position).magnitude;
+
+
+
+				//else the group code
+
+				if (!inGroup)
+				{
+					FindGroup();
+
+					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
+
+					if (distFromLeader <= 20) {
+						Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
+						//chase player
+					}
+				}
+				else
+				{
+					agent.SetDestination(leaderScript.slotPositions[slotCount] + closestLeader.gameObject.transform.position);
+
+					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
+
+					if (distFromLeader <= 20) {
+						Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
+
+						agent.SetDestination(player.transform.position);
+						//chase player
+					}
+				}
             }
         }
     }

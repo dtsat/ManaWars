@@ -1,9 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FireBallMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Monster.cs">
     <Files>
-      <File FileName="Assets\Scripts\FireSpell.cs" Line="13" Column="6" />
-      <File FileName="Assets\Scripts\FireBallMovement.cs" Line="31" Column="3" />
+      <File FileName="Assets\Scripts\FireSpell.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FireBallMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Monster.cs" Line="135" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
