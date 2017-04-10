@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Monster.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Human_Wizard.cs">
     <Files>
       <File FileName="Assets\Scripts\FireSpell.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\FireBallMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Monster.cs" Line="161" Column="26" />
-      <File FileName="Assets\Scripts\Human_Wizard.cs" Line="68" Column="28" />
-      <File FileName="Assets\Ground.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Monster.cs" Line="194" Column="26" />
+      <File FileName="Assets\Scripts\Human_Wizard.cs" Line="58" Column="61" />
+      <File FileName="Assets\Scripts\CompanionFollow.cs" Line="52" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

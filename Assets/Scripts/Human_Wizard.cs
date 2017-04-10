@@ -55,6 +55,7 @@ public class Human_Wizard : AbstractCharacter {
 
 		if (other.tag == "MeleeAttack")
 		{
+			other.GetComponentInChildren<Collider> ().enabled = false;
 			health -= 10;
 			score.GetComponent<Score>().UpdateHealth();
 			if (health > 0)
