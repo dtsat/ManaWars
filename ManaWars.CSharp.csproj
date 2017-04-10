@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\TestBullet.cs" />
     <Compile Include="Assets\Scripts\Test_Spell.cs" />
     <Compile Include="Assets\Scripts\WizardAnimation.cs" />
+    <Compile Include="Assets\Scripts\floorFlame.cs" />
     <Compile Include="Assets\SimpleMove.cs" />
     <Compile Include="Assets\WizardStats.cs" />
   </ItemGroup>
