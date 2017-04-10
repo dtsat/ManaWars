@@ -6,8 +6,9 @@ public class Human_Wizard : AbstractCharacter {
 	private Animator animator;
 	private Rigidbody rb;
 	private RaycastHit hit;
+	private float nextFireFireBall, nextFireIce;
 
-
+	public float fireFirerate, iceFirerate;
 	public Camera mainCamera;
 	public GameObject crosshair;
 	public GameObject testbullet;
@@ -67,12 +68,14 @@ public class Human_Wizard : AbstractCharacter {
             transform.Rotate(new Vector3(0.0f, -5f, 0.0f));
         if (Input.GetKey(KeyCode.D))
             transform.Rotate(new Vector3(0.0f, 5f, 0.0f));
-        if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && Time.time > nextFireIce)
         {
+			nextFireIce = Time.time + iceFirerate;
 			leftSpell.fire ();
         }
-		if (Input.GetMouseButtonDown(1))
+		if (Input.GetMouseButtonDown(1) && Time.time > nextFireFireBall)
 		{
+			nextFireFireBall = Time.time + fireFirerate;
 			rightSpell.fire ();
 		}
 

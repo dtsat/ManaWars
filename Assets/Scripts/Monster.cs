@@ -178,7 +178,7 @@ public class Monster : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerSpell")
+		if (other.tag == "PlayerSpellFire" || other.tag == "PlayerSpellIce")
         {
 			if (isDead) {
 				Destroy (other.gameObject);

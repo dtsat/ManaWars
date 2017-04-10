@@ -12,10 +12,10 @@ public class FireSpell : Spell {
 		castedSpell = Instantiate (fireBall, wand.position, wand.rotation) as GameObject;
     }
 
-    void OnMouseDown()
+    /*void OnMouseDown()
     {
         fire();
-    }
+    }*/
     
     public int getDamage()
     {

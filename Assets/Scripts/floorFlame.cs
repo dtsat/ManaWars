@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class floorFlame : MonoBehaviour {
-    float destroyTimer = 3f;
+    float destroyTimer = 10f;
 	// Use this for initialization
 	void Awake () {
         Destroy(this.gameObject, destroyTimer);

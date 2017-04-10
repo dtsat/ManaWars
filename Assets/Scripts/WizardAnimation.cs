@@ -4,6 +4,7 @@ using System.Collections;
 public class WizardAnimation : MonoBehaviour {
     Animator animator;
 
+
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
@@ -42,8 +43,8 @@ public class WizardAnimation : MonoBehaviour {
 
     void Fire()
     {
-        bool fire = Input.GetMouseButtonDown(0);
-        animator.SetBool("Fire", fire);
+		bool fire = Input.GetMouseButtonDown (0);
+		animator.SetBool ("Fire", fire);
     }
 
     void Victory()
