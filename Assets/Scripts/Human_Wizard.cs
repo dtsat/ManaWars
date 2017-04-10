@@ -15,10 +15,13 @@ public class Human_Wizard : AbstractCharacter {
 	public float speedboostTimer = 3f;
 	public bool isSpeedBoosted = false;
 
+    GameObject score;
+
 	void Start () 
 	{
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
+        score = GameObject.FindGameObjectWithTag("Score");
 
 		health = 100;
 	}
@@ -37,6 +40,7 @@ public class Human_Wizard : AbstractCharacter {
         if (other.tag == "EnemySpell")
         {
             health -= 10;
+            score.GetComponent<Score>().UpdateHealth();
             if (health > 0)
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Damaged");

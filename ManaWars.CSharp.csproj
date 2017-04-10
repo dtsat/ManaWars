@@ -67,15 +67,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\FairyBullet.cs" />
+    <Compile Include="Assets\MonsterBullet.cs" />
     <Compile Include="Assets\Scripts\AbstractCharacter.cs" />
     <Compile Include="Assets\Scripts\CompanionFollow.cs" />
     <Compile Include="Assets\Scripts\Crosshair.cs" />
     <Compile Include="Assets\Scripts\FairyMagic.cs" />
     <Compile Include="Assets\Scripts\FairyShield.cs" />
+    <Compile Include="Assets\Scripts\FireBallMovement.cs" />
     <Compile Include="Assets\Scripts\FireSpell.cs" />
     <Compile Include="Assets\Scripts\Human_Wizard.cs" />
     <Compile Include="Assets\Scripts\LifetimeObject.cs" />
+    <Compile Include="Assets\Scripts\LoadGame.cs" />
     <Compile Include="Assets\Scripts\Monster.cs" />
+    <Compile Include="Assets\Scripts\ParticleAutoDestroy.cs" />
+    <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\Spell.cs" />
     <Compile Include="Assets\Scripts\TestBullet.cs" />
     <Compile Include="Assets\Scripts\Test_Spell.cs" />

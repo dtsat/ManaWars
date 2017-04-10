@@ -13,6 +13,7 @@ public class Monster : MonoBehaviour {
     GameObject closestLeader;
     Monster leaderScript;
     Animator animator;
+    GameObject score;
 
 	bool isDead = false;
 
@@ -34,6 +35,7 @@ public class Monster : MonoBehaviour {
         openSlots = new GameObject[4];
         animator = gameObject.GetComponent<Animator>();
         health = 100;
+        score = GameObject.FindGameObjectWithTag("Score");
 
         if (tag == "MobLeader")
         {
@@ -191,6 +193,18 @@ public class Monster : MonoBehaviour {
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Die");
 				isDead = true;
+                if(tag == "MobLeader")
+                {
+                    score.GetComponent<Score>().UpdateLeaderDeath();
+                }
+                else if (tag == "MobRanged")
+                {
+                    score.GetComponent<Score>().UpdateRangedDeath();
+                }
+                else if (tag == "MobMelee")
+                {
+                    score.GetComponent<Score>().UpdateMeleeDeath();
+                }
             }
 			other.GetComponent<FireBallMovement> ().explode ();
         }
