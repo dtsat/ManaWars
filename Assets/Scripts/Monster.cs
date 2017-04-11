@@ -18,13 +18,16 @@ public class Monster : MonoBehaviour {
 	bool isDead = false;
 
 	//AI variables
-	float distToPlayer;
+	public float distToPlayer;
 	public GameObject monsterBullet;
 	public float ShootTimer = 0f;
 	public float ShootRate = 4f;
-	public float BonusShootRate = 2f;
+	public float BonusShootRate = 3f;
     int health;
 	public float MeleeTimer = 2f;
+	public bool rangedSupport = false;
+	public bool meleeSupport = false;
+
 
 	public GameObject MeleeStrike;
 
@@ -49,6 +52,7 @@ public class Monster : MonoBehaviour {
             slotPositions[1] = new Vector3(0, 0, -6);
             slotPositions[2] = new Vector3(6, 0, 0);
             slotPositions[3] = new Vector3(-6, 0, 0);
+			leaderScript = this;
         }
 	}
 
@@ -76,13 +80,75 @@ public class Monster : MonoBehaviour {
         {
             if (tag == "MobLeader")
             {
+				if (meleeSupport) {
+					Debug.Log ("BOOSTAGE!");
+					agent.speed = 4.5f;
+				} else {
+					agent.speed = 3.5f;
+				}
+				rangedSupport = false;
+				meleeSupport = false;
+
+				for (int i = 0; i < leaderScript.openSlots.Length; i++)
+				{
+					if (leaderScript.openSlots [i] != null) {
+						if (leaderScript.openSlots [i].tag == "MobRanged") {
+							rangedSupport = true;
+						}
+						if (leaderScript.openSlots [i].tag == "MobMelee") {
+							Debug.Log("I HAVE MELEE!!");
+							meleeSupport = true;
+							agent.speed = 4.5f;
+						}
+					}
+				}
+
+
+				if (MeleeTimer >= 0) {
+					MeleeTimer -= (Time.deltaTime) * 1;
+				}
+
+				ShootTimer += (Time.deltaTime) * 1;
+				distToPlayer = (player.transform.position - transform.position).magnitude;
+				if (distToPlayer <= 6f) {
+					Debug.Log ("BOSS SEE  YOU!");
+
+					if (MeleeTimer <= 0) {
+						Debug.Log ("BOSS SMASH!!!");
+						StartCoroutine (ShockWave ());
+						MeleeTimer = 2f;
+					}
+				} else if (distToPlayer <= 30f && rangedSupport) {
+					Debug.Log ("BOSS BLASTER!!!");
+
+					transform.LookAt (player.transform);
+
+					if (ShootTimer >= ShootRate)
+					{
+						ShootTimer = 0f;
+
+						offsetShot = new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z);
+						monsterBullet.transform.position = offsetShot;
+
+						Instantiate(monsterBullet);
+						monsterBullet.GetComponent<MonsterBullet>().SetTarget(player);
+						animator.SetTrigger("Projectile Attack");
+						//instantiate enemy bullet
+						//Enemy bullet script will autograb the player's location and home in on it.
+					}
+				}
+
                 if (slotCount == 0)
                 {
+
                     float distance = MinionDistance();
                     if (distance < 200.0f)
                     {
+
+
                         agent.SetDestination(player.transform.position);
                     }
+						
                 }
                 else
                 {

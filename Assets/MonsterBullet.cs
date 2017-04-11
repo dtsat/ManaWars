@@ -10,7 +10,7 @@ public class MonsterBullet : MonoBehaviour {
 	public float lifetime = 10f;
 
 	float distFromTarget;
-	float speed = 7.0f;
+	float speed = 6.0f;
 	float radius = 0.11f;
 	Vector3 goalFacing;
 	Quaternion lookWhereYoureGoing;
