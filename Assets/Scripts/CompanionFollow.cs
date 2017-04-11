@@ -13,7 +13,8 @@ public class CompanionFollow : MonoBehaviour {
 	public int targetNum = 1;
 
 	//public int iteration = 0;
-	float speed = 3.0f;
+	float speed = 4.0f;
+	float hurrySpeed = 10.0f;
 	float radius = 1.0f;
 	Vector3 goalFacing;
 	Quaternion lookWhereYoureGoing;
@@ -65,7 +66,14 @@ public class CompanionFollow : MonoBehaviour {
 			}
 
 			float dot = Vector3.Dot (transform.forward, (target.transform.position - transform.position).normalized);
-			GetComponent<Rigidbody> ().velocity = ((target.transform.position - transform.position).normalized * speed);
+
+			if (distFromTarget <= 4.5f) {
+				GetComponent<Rigidbody> ().velocity = ((target.transform.position - transform.position).normalized * speed);
+			} else {
+				GetComponent<Rigidbody> ().velocity = ((target.transform.position - transform.position).normalized * hurrySpeed);
+			}
+
+
 			goalFacing = (target.transform.position - transform.position).normalized;
 			lookWhereYoureGoing = Quaternion.LookRotation (goalFacing, Vector3.up);
 			transform.rotation = Quaternion.RotateTowards (transform.rotation, lookWhereYoureGoing, rotationSpeedRads);
