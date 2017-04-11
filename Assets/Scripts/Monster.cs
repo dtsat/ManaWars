@@ -297,7 +297,8 @@ public class Monster : MonoBehaviour {
                     score.GetComponent<Score>().UpdateMeleeDeath();
                 }
             }
-			other.GetComponent<FireBallMovement> ().explode ();
+			if(other.tag != "FireTrap")
+				other.GetComponent<FireBallMovement> ().explode ();
         }
     }
 }
