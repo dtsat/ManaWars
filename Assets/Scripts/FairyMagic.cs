@@ -74,7 +74,7 @@ public class FairyMagic : MonoBehaviour {
 			if (Wizard.GetComponent<Human_Wizard> ().health <= 50) {
 				i = 0;
 				while (i < hitColliders.Length) {
-					if (hitColliders [i].tag == "Enemy") {
+					if (hitColliders [i].tag == "MobMelee") {
 						//Speedboost code here!
 
 						Wizard.GetComponent<Human_Wizard> ().speed = 10;
@@ -93,12 +93,14 @@ public class FairyMagic : MonoBehaviour {
 				int j = 0;
 
 				while (j < ShotTargetCollider.Length) {
-					if (ShotTargetCollider [j].tag == "Enemy") {
+		
+					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee") {
 						FairyShot.transform.position = transform.position;
+		
 						Instantiate (FairyShot);
 						FairyShot.GetComponent<FairyBullet>().SetTarget(ShotTargetCollider[j].gameObject);
 						fairyshieldtimer -= 3;
-						j = hitColliders.Length;
+						j = ShotTargetCollider.Length;
 
 					}
 					j++;

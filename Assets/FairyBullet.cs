@@ -20,7 +20,6 @@ public class FairyBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 
 	public void SetTarget(GameObject t){
@@ -59,7 +58,7 @@ public class FairyBullet : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider other){
 		if (other.tag == "Enemy") {
-			Debug.Log ("HIT!!!!");
+
 			Destroy (other.gameObject);
 			//Destroy (targetNode);
 			Destroy (gameObject);
