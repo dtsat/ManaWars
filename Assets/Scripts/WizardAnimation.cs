@@ -25,7 +25,7 @@ public class WizardAnimation : MonoBehaviour {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (h != 0 || v != 0)
+		if (h != 0 || v != 0 || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
         {
             animator.SetBool("Moving", true);
         }
