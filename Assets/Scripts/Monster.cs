@@ -335,13 +335,26 @@ public class Monster : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-		if (other.tag == "PlayerSpellFire" || other.tag == "PlayerSpellIce" || other.tag == "FireTrap")
+		if (other.tag == "PlayerSpellFire" || other.tag == "PlayerSpellIce" || other.tag == "FireTrap" || other.tag == "FairySpell")
         {
 			if (isDead) {
 				Destroy (other.gameObject);
 				return;
 			}
-			health -= 10;
+
+			if (other.tag == "PlayerSpellFire") {
+				health -= 30;
+			}
+			if (other.tag == "PlayerSpellIce") {
+				health -= 20;
+			}
+			if (other.tag == "FireTrap") {
+				health -= 10;
+			}
+			if (other.tag == "FairySpell") {
+				health -= 10;
+			}
+
             if (health > 0)
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Take Damage");
@@ -363,7 +376,7 @@ public class Monster : MonoBehaviour {
                     score.GetComponent<Score>().UpdateMeleeDeath();
                 }
             }
-			if(other.tag != "FireTrap")
+			if(other.tag != "FireTrap" && other.tag != "FairySpell" )
 				other.GetComponent<FireBallMovement> ().explode ();
         }
     }

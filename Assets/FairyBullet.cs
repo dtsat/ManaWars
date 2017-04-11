@@ -25,7 +25,9 @@ public class FairyBullet : MonoBehaviour {
 	public void SetTarget(GameObject t){
 		target = t;
 
-		targetNode.transform.position = target.transform.position;
+		//targetNode.transform.position = target.transform.position;
+
+		targetNode.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
 
 	}
 	

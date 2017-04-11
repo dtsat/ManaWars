@@ -40,15 +40,13 @@ public class FairyMagic : MonoBehaviour {
 
 		distFromWiz = (WizardPos.transform.position - transform.position).magnitude;
 
-		if (distFromWiz <= 5) {
+		if (distFromWiz <= 5.5f) {
 			if (fairyshieldtimer < 10) {
 				fairyshieldtimer += (Time.deltaTime) * 1;
 			}
 		}
-
-
-
-		if (fairyshieldtimer >= 10) {
+			
+		if (fairyshieldtimer >= 10 && distFromWiz <= 4.5f) {
 			fairyshieldtimer = 10;
 			//if ( enemyspell is nearby){
 			//}
@@ -74,10 +72,10 @@ public class FairyMagic : MonoBehaviour {
 			if (Wizard.GetComponent<Human_Wizard> ().health <= 50) {
 				i = 0;
 				while (i < hitColliders.Length) {
-					if (hitColliders [i].tag == "MobMelee") {
+					if (hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader") {
 						//Speedboost code here!
 
-						Wizard.GetComponent<Human_Wizard> ().speed = 10;
+						Wizard.GetComponent<Human_Wizard> ().speed = 13;
 						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
 
 						SpeedEffect.transform.position = wizPosition;
@@ -94,7 +92,7 @@ public class FairyMagic : MonoBehaviour {
 
 				while (j < ShotTargetCollider.Length) {
 		
-					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee") {
+					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee" || ShotTargetCollider [j].tag == "MobLeader") {
 						FairyShot.transform.position = transform.position;
 		
 						Instantiate (FairyShot);

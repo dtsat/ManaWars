@@ -67,7 +67,7 @@ public class CompanionFollow : MonoBehaviour {
 
 			float dot = Vector3.Dot (transform.forward, (target.transform.position - transform.position).normalized);
 
-			if (distFromTarget <= 4.5f) {
+			if (distFromTarget <= 5.5f) {
 				GetComponent<Rigidbody> ().velocity = ((target.transform.position - transform.position).normalized * speed);
 			} else {
 				GetComponent<Rigidbody> ().velocity = ((target.transform.position - transform.position).normalized * hurrySpeed);

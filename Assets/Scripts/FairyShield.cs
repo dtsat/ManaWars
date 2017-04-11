@@ -20,7 +20,7 @@ public class FairyShield : MonoBehaviour {
 		while (i < hitColliders.Length) {
 			if (hitColliders [i].tag == "EnemySpell") {
 				Destroy (hitColliders [i].gameObject);
-				Destroy (gameObject);
+				//Destroy (gameObject);
 
 			}
 			i++;
