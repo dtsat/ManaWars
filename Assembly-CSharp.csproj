@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\FinalScore.cs" />
      <Compile Include="Assets\Scripts\FireBallMovement.cs" />
      <Compile Include="Assets\Scripts\FireSpell.cs" />
+     <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Human_Wizard.cs" />
      <Compile Include="Assets\Scripts\LifetimeObject.cs" />
      <Compile Include="Assets\Scripts\LoadGame.cs" />
