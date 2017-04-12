@@ -6,6 +6,7 @@ public class LoadGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = true;
 	
 	}
 	
