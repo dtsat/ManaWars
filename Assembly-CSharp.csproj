@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ControlCameraChanger.cs" />
      <Compile Include="Assets\FairyBullet.cs" />
      <Compile Include="Assets\Ground.cs" />
      <Compile Include="Assets\MonsterBullet.cs" />
