@@ -25,8 +25,11 @@ public class Human_Wizard : AbstractCharacter {
     GameObject score;
     GameObject healthBar;
 
+	private int screenWidth;
+
 	void Start () 
 	{
+		screenWidth = Screen.width;
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
         score = GameObject.FindGameObjectWithTag("Score");
@@ -93,14 +96,18 @@ public class Human_Wizard : AbstractCharacter {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.S))
             transform.Translate(Vector3.back * speed * Time.deltaTime);
-        if (Input.GetKey(KeyCode.Q))
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-        if (Input.GetKey(KeyCode.E))
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.A))
-            transform.Rotate(new Vector3(0.0f, -5f, 0.0f));
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.D))
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
+		/*if (Input.mousePosition.x > screenWidth / 2)
             transform.Rotate(new Vector3(0.0f, 5f, 0.0f));
+		if (Input.mousePosition.x < screenWidth / 2)
+            transform.Rotate(new Vector3(0.0f, -5f, 0.0f));
+		if (Input.GetKey(KeyCode.E))
+			transform.Rotate(new Vector3(0.0f, 5f, 0.0f));
+		if (Input.GetKey(KeyCode.Q))
+			transform.Rotate(new Vector3(0.0f, -5f, 0.0f));*/
 		if (Input.GetMouseButtonDown(0) && Time.time > nextFireIce)
         {
 			nextFireIce = Time.time + iceFirerate;
