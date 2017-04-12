@@ -7,7 +7,9 @@ public class FairyMagic : MonoBehaviour {
 
 	public GameObject Wizard;
 
-	public Vector3 wizPosition;
+    GameObject healthBar;
+
+    public Vector3 wizPosition;
 	public Quaternion wizRotation;
 	float distFromWiz;
 	public GameObject Shield;
@@ -32,10 +34,12 @@ public class FairyMagic : MonoBehaviour {
 	void Start () {
 
 		fairyshieldtimer = 10f;
-		//StartCoroutine(PresenceCheck());
-	}
+        healthBar = GameObject.FindGameObjectWithTag("HealthContainer");
 
-	IEnumerator PresenceCheck(){
+        //StartCoroutine(PresenceCheck());
+    }
+
+    IEnumerator PresenceCheck(){
 
 		yield return new WaitForSeconds (1f);
 	}
@@ -118,8 +122,9 @@ public class FairyMagic : MonoBehaviour {
 				if(Wizard.GetComponent<Human_Wizard>().health < 100 && Wizard.GetComponent<Human_Wizard>().health > 0)
                 {
 					Wizard.GetComponent<Human_Wizard>().health += 5;
+                    healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
 
-					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
+                    offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
 
 					HealSound.Play ();
 					FairyHeal.transform.position = offsetHeal;
