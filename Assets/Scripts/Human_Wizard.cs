@@ -50,7 +50,7 @@ public class Human_Wizard : AbstractCharacter {
     {
         if (other.tag == "EnemySpell")
         {
-            health -= 10;
+            health -= 5;
             score.GetComponent<Score>().UpdateHealth();
             healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
             if (health > 0)
@@ -72,7 +72,7 @@ public class Human_Wizard : AbstractCharacter {
 		if (other.tag == "MeleeAttack")
 		{
 			other.GetComponentInChildren<Collider> ().enabled = false;
-			health -= 10;
+			health -= 20;
 			score.GetComponent<Score>().UpdateHealth();
             healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
             if (health > 0)

@@ -16,7 +16,6 @@ public class ControlCameraChanger : MonoBehaviour {
 
 	public void ToSmash()
 	{
-		Debug.Log ("WTF!");
 		SmashCam.GetComponent<Camera> ().enabled = true;
 		IntroCam.GetComponent<Camera> ().enabled = false;
 	}

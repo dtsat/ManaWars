@@ -49,13 +49,13 @@ public class FairyMagic : MonoBehaviour {
 
 		distFromWiz = (WizardPos.transform.position - transform.position).magnitude;
 
-		if (distFromWiz <= 5.5f) {
+		if (distFromWiz <= 6f) {
 			if (fairyshieldtimer < 10) {
 				fairyshieldtimer += (Time.deltaTime) * 1;
 			}
 		}
 			
-		if (fairyshieldtimer >= 10 && distFromWiz <= 4.5f) {
+		if (fairyshieldtimer >= 10 && distFromWiz <= 5f) {
 			fairyshieldtimer = 10;
 			//if ( enemyspell is nearby){
 			//}
