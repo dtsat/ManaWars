@@ -87,7 +87,13 @@ public class Monster : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(health > 0)
+		if (agent.velocity.magnitude > 0)
+			animator.SetBool ("Walk", true);
+		else
+			animator.SetBool ("Walk", false);
+
+
+		if(health > 0)
         {
             if (tag == "MobLeader")
             {
@@ -134,8 +140,10 @@ public class Monster : MonoBehaviour {
 
 					transform.LookAt (player.transform);
 
+
 					if (ShootTimer >= ShootRate)
 					{
+						//transform.LookAt (player.transform);
 						ShootTimer = 0f;
 
 						offsetShot = new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z);
@@ -180,10 +188,11 @@ public class Monster : MonoBehaviour {
 					if (distToPlayer <= 20)
 					{
 
-						transform.LookAt (player.transform);
+						//transform.LookAt (player.transform);
 
 						if (ShootTimer >= ShootRate)
 						{
+							transform.LookAt (player.transform);
 							ShootTimer = 0f;
 
 							offsetShot = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
@@ -214,6 +223,7 @@ public class Monster : MonoBehaviour {
 
 						if (ShootTimer >= BonusShootRate)
 						{
+							//transform.LookAt (player.transform);
 							ShootTimer = 0f;
 
 							//Debug.Log ("I'm shooting now");
@@ -359,15 +369,18 @@ public class Monster : MonoBehaviour {
 		if (other.tag == "PlayerSpellFire" || other.tag == "PlayerSpellIce" || other.tag == "FireTrap" || other.tag == "FairySpell")
         {
 			if (isDead) {
-				Destroy (other.gameObject);
+				if (other.tag == "PlayerSpellFire" || other.tag == "PlayerSpellIce")
+					Destroy (other.gameObject);
 				return;
 			}
 
 			if (other.tag == "PlayerSpellFire") {
 				health -= 30;
+				other.GetComponent<FireBallMovement> ().explode ();
 			}
 			if (other.tag == "PlayerSpellIce") {
 				health -= 20;
+				other.GetComponent<FireBallMovement> ().explode ();
 			}
 			if (other.tag == "FireTrap") {
 				health -= 10;
@@ -399,8 +412,6 @@ public class Monster : MonoBehaviour {
                     score.GetComponent<Score>().UpdateMeleeDeath();
                 }
             }
-			if(other.tag != "FireTrap" && other.tag != "FairySpell" )
-				other.GetComponent<FireBallMovement> ().explode ();
         }
     }
 }
