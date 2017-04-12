@@ -23,6 +23,11 @@ public class FairyMagic : MonoBehaviour {
 
 	public float fairyshieldtimer = 10f;
 
+	public AudioSource ShieldSound;
+	public AudioSource ShootSound;
+	public AudioSource SpeedSound;
+	public AudioSource HealSound;
+
 	// Use this for initialization
 	void Start () {
 
@@ -60,6 +65,7 @@ public class FairyMagic : MonoBehaviour {
 
 			while (i < hitColliders.Length) {
 				if (hitColliders [i].tag == "EnemySpell") {
+					ShieldSound.Play ();
 					Shield.transform.position = wizPosition;
 					Instantiate (Shield);
 					fairyshieldtimer -= 10;
@@ -72,11 +78,13 @@ public class FairyMagic : MonoBehaviour {
 			if (Wizard.GetComponent<Human_Wizard> ().health <= 50) {
 				i = 0;
 				while (i < hitColliders.Length) {
-					if (hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader") {
+					if (hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader" || hitColliders [i].tag == "MobRanged") {
 						//Speedboost code here!
 
-						Wizard.GetComponent<Human_Wizard> ().speed = 13;
+						Wizard.GetComponent<Human_Wizard> ().speed = 16;
 						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
+
+						SpeedSound.Play ();
 
 						SpeedEffect.transform.position = wizPosition;
 						Instantiate (SpeedEffect);
@@ -87,7 +95,7 @@ public class FairyMagic : MonoBehaviour {
 					i++;
 				}
 			} else {
-				Collider[] ShotTargetCollider = Physics.OverlapSphere (wizPosition, 6f);
+				Collider[] ShotTargetCollider = Physics.OverlapSphere (wizPosition, 15f);
 				int j = 0;
 
 				while (j < ShotTargetCollider.Length) {
@@ -95,6 +103,7 @@ public class FairyMagic : MonoBehaviour {
 					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee" || ShotTargetCollider [j].tag == "MobLeader") {
 						FairyShot.transform.position = transform.position;
 		
+						ShootSound.Play ();
 						Instantiate (FairyShot);
 						FairyShot.GetComponent<FairyBullet>().SetTarget(ShotTargetCollider[j].gameObject);
 						fairyshieldtimer -= 3;
@@ -112,6 +121,7 @@ public class FairyMagic : MonoBehaviour {
 
 					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
 
+					HealSound.Play ();
 					FairyHeal.transform.position = offsetHeal;
 					Instantiate (FairyHeal);
 

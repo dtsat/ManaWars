@@ -21,8 +21,8 @@ public class Monster : MonoBehaviour {
 	public float distToPlayer;
 	public GameObject monsterBullet;
 	public float ShootTimer = 0f;
-	public float ShootRate = 4f;
-	public float BonusShootRate = 3f;
+	public float ShootRate = 6f;
+	public float BonusShootRate = 4f;
     int health;
 	public float MeleeTimer = 2f;
 	public bool rangedSupport = false;
@@ -33,6 +33,13 @@ public class Monster : MonoBehaviour {
 
 	public Vector3 offsetShot;
 	//public float formBonus = 2f //Make enemies shoot faster whie in formation.
+
+	//SFX
+	public AudioSource RawrSound;
+	public AudioSource SmashSound;
+	public AudioSource HurtSound;
+	public AudioSource ShootSound;
+	public AudioSource DeadSound;
 
 
     // Use this for initialization
@@ -46,6 +53,7 @@ public class Monster : MonoBehaviour {
 
         if (tag == "MobLeader")
         {
+			ShootRate = 3f;
             slotCount = 4;
             slotPositions = new Vector3[4];
             slotPositions[0] = new Vector3(0, 0, 6);
@@ -60,12 +68,15 @@ public class Monster : MonoBehaviour {
 
 		agent.Stop ();
 
+		RawrSound.Play ();
 		animator.SetTrigger("Shockwave Attack");
 
 		yield return new WaitForSeconds (0.75f);
 
 		MeleeStrike.transform.position = transform.position;
 		MeleeStrike.transform.rotation = transform.rotation;
+
+		SmashSound.Play ();
 		Instantiate (MeleeStrike);
 
 		yield return new WaitForSeconds (1f);
@@ -81,7 +92,7 @@ public class Monster : MonoBehaviour {
             if (tag == "MobLeader")
             {
 				if (meleeSupport) {
-					Debug.Log ("BOOSTAGE!");
+					//Debug.Log ("BOOSTAGE!");
 					agent.speed = 4.5f;
 				} else {
 					agent.speed = 3.5f;
@@ -96,7 +107,7 @@ public class Monster : MonoBehaviour {
 							rangedSupport = true;
 						}
 						if (leaderScript.openSlots [i].tag == "MobMelee") {
-							Debug.Log("I HAVE MELEE!!");
+							///Debug.Log("I HAVE MELEE!!");
 							meleeSupport = true;
 							agent.speed = 4.5f;
 						}
@@ -111,15 +122,15 @@ public class Monster : MonoBehaviour {
 				ShootTimer += (Time.deltaTime) * 1;
 				distToPlayer = (player.transform.position - transform.position).magnitude;
 				if (distToPlayer <= 6f) {
-					Debug.Log ("BOSS SEE  YOU!");
+					//Debug.Log ("BOSS SEE  YOU!");
 
 					if (MeleeTimer <= 0) {
-						Debug.Log ("BOSS SMASH!!!");
+						//Debug.Log ("BOSS SMASH!!!");
 						StartCoroutine (ShockWave ());
 						MeleeTimer = 2f;
 					}
 				} else if (distToPlayer <= 30f && rangedSupport) {
-					Debug.Log ("BOSS BLASTER!!!");
+					//Debug.Log ("BOSS BLASTER!!!");
 
 					transform.LookAt (player.transform);
 
@@ -130,9 +141,12 @@ public class Monster : MonoBehaviour {
 						offsetShot = new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z);
 						monsterBullet.transform.position = offsetShot;
 
+						ShootSound.Play ();
+						animator.SetTrigger("Projectile Attack");
+
 						Instantiate(monsterBullet);
 						monsterBullet.GetComponent<MonsterBullet>().SetTarget(player);
-						animator.SetTrigger("Projectile Attack");
+
 						//instantiate enemy bullet
 						//Enemy bullet script will autograb the player's location and home in on it.
 					}
@@ -175,11 +189,13 @@ public class Monster : MonoBehaviour {
 							offsetShot = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
 							monsterBullet.transform.position = offsetShot;
 
-
+							//RawrSound.Play ();
+							animator.SetTrigger("Projectile Attack");
 
 							Instantiate(monsterBullet);
 							monsterBullet.GetComponent<MonsterBullet>().SetTarget(player);
-							animator.SetTrigger("Projectile Attack");
+
+							ShootSound.Play ();
 							//instantiate enemy bullet
 							//Enemy bullet script will autograb the player's location and home in on it.
 						}
@@ -200,13 +216,18 @@ public class Monster : MonoBehaviour {
 						{
 							ShootTimer = 0f;
 
-							Debug.Log ("I'm shooting now");
+							//Debug.Log ("I'm shooting now");
 
 							offsetShot = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
 							monsterBullet.transform.position = offsetShot;
+
+							//RawrSound.Play ();
+							animator.SetTrigger("Projectile Attack");
+
 							Instantiate(monsterBullet);
 							monsterBullet.GetComponent<MonsterBullet>().SetTarget(player);
-							animator.SetTrigger("Projectile Attack");
+
+							ShootSound.Play ();
 							//instantiate enemy bullet
 							//Enemy bullet script will autograb the player's location and home in on it.
 						}
@@ -236,7 +257,7 @@ public class Monster : MonoBehaviour {
 					distToPlayer = (player.transform.position - transform.position).magnitude;
 
 					if (distToPlayer <= 20) {
-						Debug.Log ("I SEE YOU, PLAYER!");
+						//Debug.Log ("I SEE YOU, PLAYER!");
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
@@ -250,7 +271,7 @@ public class Monster : MonoBehaviour {
 					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
 
 					if (distFromLeader <= 20) {
-						Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
+						//Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
 
 						agent.SetDestination(player.transform.position);
 						//chase player
@@ -258,7 +279,7 @@ public class Monster : MonoBehaviour {
 				}
 
 				if (distToPlayer <= 3f) {
-					Debug.Log ("I ATTACKED YOU!");
+					//Debug.Log ("I ATTACKED YOU!");
 
 
 
@@ -357,10 +378,12 @@ public class Monster : MonoBehaviour {
 
             if (health > 0)
             {
+				HurtSound.Play ();
                 gameObject.GetComponent<Animator>().SetTrigger("Take Damage");
             }
 			else
             {
+				DeadSound.Play ();
                 gameObject.GetComponent<Animator>().SetTrigger("Die");
 				isDead = true;
                 if(tag == "MobLeader")

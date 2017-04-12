@@ -5,6 +5,8 @@ public class FairyShield : MonoBehaviour {
 
 	public float lifetime = 5f;
 
+	public AudioSource ReflectSound;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -19,6 +21,7 @@ public class FairyShield : MonoBehaviour {
 
 		while (i < hitColliders.Length) {
 			if (hitColliders [i].tag == "EnemySpell") {
+				ReflectSound.Play ();
 				Destroy (hitColliders [i].gameObject);
 				//Destroy (gameObject);
 

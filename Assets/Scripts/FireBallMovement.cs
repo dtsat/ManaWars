@@ -12,7 +12,8 @@ public class FireBallMovement : MonoBehaviour {
 	private Rigidbody rb;
 	LayerMask lm = ~(1 << 8);
 
-
+	public AudioSource BoomSound;
+	public AudioSource FwooshSound;
 
 	void Start () 
 	{
@@ -41,12 +42,14 @@ public class FireBallMovement : MonoBehaviour {
 
 	public void explode()
 	{
+		BoomSound.Play ();
 		Instantiate (explosion, transform.position, transform.rotation);
 		Destroy (gameObject);
 	}
 
 	public void groundExplode ()
 	{
+		FwooshSound.Play ();
 		Instantiate (groundExplosion, transform.position, transform.rotation);
 		Destroy (gameObject, 0.15f);
 	}
