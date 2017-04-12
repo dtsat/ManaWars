@@ -13,18 +13,19 @@ public class Human_Wizard : AbstractCharacter {
 	public Camera mainCamera;
 	public GameObject crosshair;
 	public GameObject testbullet;
-
+    
 	public float speedboostTimer = 3f;
 	public bool isSpeedBoosted = false;
 
     GameObject score;
+    GameObject healthBar;
 
 	void Start () 
 	{
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
         score = GameObject.FindGameObjectWithTag("Score");
-
+        healthBar = GameObject.FindGameObjectWithTag("HealthContainer");
 		health = 100;
 	}
 	
@@ -43,6 +44,7 @@ public class Human_Wizard : AbstractCharacter {
         {
             health -= 10;
             score.GetComponent<Score>().UpdateHealth();
+            healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
             if (health > 0)
             {
                 gameObject.GetComponent<Animator>().SetTrigger("Damaged");
@@ -62,7 +64,8 @@ public class Human_Wizard : AbstractCharacter {
 			other.GetComponentInChildren<Collider> ().enabled = false;
 			health -= 10;
 			score.GetComponent<Score>().UpdateHealth();
-			if (health > 0)
+            healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
+            if (health > 0)
 			{
 				gameObject.GetComponent<Animator>().SetTrigger("Damaged");
 			}
