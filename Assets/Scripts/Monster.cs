@@ -23,11 +23,13 @@ public class Monster : MonoBehaviour {
 	public float ShootTimer = 0f;
 	public float ShootRate = 6f;
 	public float BonusShootRate = 4f;
-    int health;
+	public int health;
 	public float MeleeTimer = 2f;
 	public bool rangedSupport = false;
 	public bool meleeSupport = false;
 
+	public Vector3 deathOffset;
+	public float deathSinkTimer = 0;
 
 	public GameObject MeleeStrike;
 
@@ -44,11 +46,21 @@ public class Monster : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+
+		deathSinkTimer = 0;
         agent = GetComponent<NavMeshAgent>();
         openSlots = new GameObject[4];
         animator = gameObject.GetComponent<Animator>();
-        health = 100;
+
+		if (tag == "MobLeader") {
+			health = 500;
+		} else if (tag == "MobMelee") {
+			health = 100;
+		} else if (tag == "MobRanged") {
+			health = 60;
+		} else {
+			health = 100;
+		}
         score = GameObject.FindGameObjectWithTag("Score");
 
         if (tag == "MobLeader")
@@ -92,6 +104,16 @@ public class Monster : MonoBehaviour {
 		else
 			animator.SetBool ("Walk", false);
 
+		if (isDead) {
+			if (deathSinkTimer > -6f) {
+				
+			deathSinkTimer -= (Time.deltaTime) * 0.5f;
+			deathOffset = new Vector3 (transform.position.x, transform.position.y + deathSinkTimer, transform.position.z);
+
+			transform.position = deathOffset;
+
+			}
+		}
 
 		if(health > 0)
         {

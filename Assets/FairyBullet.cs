@@ -59,10 +59,7 @@ public class FairyBullet : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter(Collider other){
-		if (other.tag == "Enemy") {
-
-			Destroy (other.gameObject);
-			//Destroy (targetNode);
+		if (other.tag == "MobLeader" || other.tag == "MobRanged" || other.tag == "MobMelee") {
 			Destroy (gameObject);
 		}
 	}
