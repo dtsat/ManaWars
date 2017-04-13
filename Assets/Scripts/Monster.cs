@@ -44,10 +44,13 @@ public class Monster : MonoBehaviour {
 	public AudioSource ShootSound;
 	public AudioSource DeadSound;
 
+	//Wander 
+	private float wanderRadius = 25f, wanderTime = 10f, timer;
 
     // Use this for initialization
     void Start () {
 
+		timer = wanderTime;
 		deathSinkTimer = 0;
         agent = GetComponent<NavMeshAgent>();
         openSlots = new GameObject[4];
@@ -78,6 +81,28 @@ public class Monster : MonoBehaviour {
         }
 	}
 
+	public void Wander()
+	{
+		timer += Time.deltaTime;
+		if (timer >= wanderTime) 
+		{
+			Vector3 newPos = RandomPointInSphere (transform.position, wanderRadius, -1);
+			agent.SetDestination (newPos);
+			timer = 0;
+		}
+
+	}
+
+	public Vector3 RandomPointInSphere(Vector3 origin, float radius, int layermask)
+	{
+		Vector3 direction = Random.insideUnitSphere * radius;
+		direction += origin;
+		NavMeshHit hit;
+		NavMesh.SamplePosition (direction, out hit, radius, layermask);
+		return hit.position;
+	}
+
+
 	IEnumerator ShockWave(){
 
 		agent.Stop ();
@@ -99,18 +124,46 @@ public class Monster : MonoBehaviour {
 
 	}
 
+	void ResetSpeed()
+	{
+		agent.speed = 3.5f;
+		agent.acceleration = 8f;
+		agent.angularSpeed = 120f;
+	}
+
+	IEnumerator Break()
+	{
+		agent.speed = 0f;
+		agent.acceleration = 0f;
+		agent.angularSpeed = 0f;
+		yield return new WaitForSeconds (2f);
+		ResetSpeed ();
+	}
+
+	IEnumerator Steering(float speed, float accel, float angular)
+	{
+		agent.speed = speed;
+		agent.acceleration = accel;
+		agent.angularSpeed = angular;
+		yield return new WaitForSeconds (5f);
+		ResetSpeed ();
+	}
+
+
     public IEnumerator MoveFromSpawn(Vector3 target)
     {
         yield return new WaitForSeconds(0.5f);
         isInScene = false;
         agent.SetDestination(target);
-        Debug.Log("MoveFromSpawn agent for " + name + ": " + agent.destination.x + " " + agent.destination.y + " " + agent.destination.z);
 
-        while (agent.remainingDistance > 200)
+        //Debug.Log("MoveFromSpawn agent for " + name + ": " + agent.destination.x + " " + agent.destination.y + " " + agent.destination.z);
+
+		while ((target - transform.position).magnitude > 50f)
         {
-            yield return new WaitForSeconds(0.5f);
+			yield return null;
         }
         isInScene = true;
+
     }
 
     // Update is called once per frame
@@ -137,6 +190,7 @@ public class Monster : MonoBehaviour {
         {
             if (tag == "MobLeader")
             {
+				
 				if (meleeSupport) {
 					//Debug.Log ("BOOSTAGE!");
 					agent.speed = 4.5f;
@@ -167,7 +221,8 @@ public class Monster : MonoBehaviour {
 
 				ShootTimer += (Time.deltaTime) * 1;
 				distToPlayer = (player.transform.position - transform.position).magnitude;
-				if (distToPlayer <= 6f) {
+				float angle = Vector3.Dot ((player.transform.position - transform.position).normalized, transform.forward);
+				if (distToPlayer <= 6f && angle >= 0.5f) {
 					//Debug.Log ("BOSS SEE  YOU!");
 
 					if (MeleeTimer <= 0) {
@@ -175,7 +230,7 @@ public class Monster : MonoBehaviour {
 						StartCoroutine (ShockWave ());
 						MeleeTimer = 2f;
 					}
-				} else if (distToPlayer <= 30f && rangedSupport) {
+				} else if (distToPlayer <= 30f && rangedSupport && angle >= 0.5f) {
 					//Debug.Log ("BOSS BLASTER!!!");
 
 					transform.LookAt (player.transform);
@@ -206,15 +261,13 @@ public class Monster : MonoBehaviour {
                     float distance = MinionDistance();
                     if (distance < 200.0f)
                     {
-
-
-                        agent.SetDestination(player.transform.position);
+						agent.SetDestination(player.transform.position);
                     }
 						
                 }
                 else
                 {
-                    //Wander
+					Wander ();
                 }
             }
             else if (tag == "MobRanged")
@@ -222,10 +275,10 @@ public class Monster : MonoBehaviour {
 				ShootTimer += (Time.deltaTime) * 1;
                 //If in range, fire bullets
                 distToPlayer = (player.transform.position - transform.position).magnitude;
-
+				float angle = Vector3.Dot ((player.transform.position - transform.position).normalized, transform.forward);
                 if (!inGroup)
                 {
-					if (distToPlayer <= 20)
+					if (distToPlayer <= 20 && angle >= 0.5f)
 					{
 
 						//transform.LookAt (player.transform);
@@ -256,7 +309,7 @@ public class Monster : MonoBehaviour {
                 else
                 {
 
-					if (distToPlayer <= 30)
+					if (distToPlayer <= 30 && angle >= 0.5f)
 					{
 						
 						transform.LookAt (player.transform);
@@ -296,7 +349,7 @@ public class Monster : MonoBehaviour {
 
 
 				distToPlayer = (player.transform.position - transform.position).magnitude;
-
+				float angle = Vector3.Dot ((player.transform.position - transform.position).normalized, transform.forward);
 
 
 				//else the group code
@@ -306,8 +359,9 @@ public class Monster : MonoBehaviour {
 					
 					distToPlayer = (player.transform.position - transform.position).magnitude;
 
-					if (distToPlayer <= 20) {
+					if (distToPlayer <= 20 && angle >= 0.5f) {
 						//Debug.Log ("I SEE YOU, PLAYER!");
+						StartCoroutine(Steering(50f, 10f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
@@ -320,17 +374,17 @@ public class Monster : MonoBehaviour {
 
 					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
 
-					if (distFromLeader <= 20) {
+					if (distFromLeader <= 20 && angle >= 0.5f) {
 						//Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
-
+						StartCoroutine(Steering(50f, 10f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
 				}
 
-				if (distToPlayer <= 3f) {
+				if (distToPlayer <= 5f && angle >= 0.5f) {
 					//Debug.Log ("I ATTACKED YOU!");
-
+					Break();
 
 
 					if (MeleeTimer <= 0) {
@@ -369,7 +423,7 @@ public class Monster : MonoBehaviour {
         }
         else
         {
-            //Wander
+			Wander ();
         }
     }
 
@@ -417,10 +471,17 @@ public class Monster : MonoBehaviour {
 			if (other.tag == "PlayerSpellFire") {
 				health -= 30;
 				other.GetComponent<FireBallMovement> ().explode ();
+				agent.SetDestination (player.transform.position);
+				if ((CompareTag ("MobMelee") || CompareTag ("MobRanged")) && inGroup && closestLeader != null)
+					closestLeader.GetComponent<Monster> ().agent.SetDestination (player.transform.position);
+					
 			}
 			if (other.tag == "PlayerSpellIce") {
 				health -= 20;
 				other.GetComponent<FireBallMovement> ().explode ();
+				agent.SetDestination (player.transform.position);
+				if ((CompareTag ("MobMelee") || CompareTag ("MobRanged")) && inGroup && closestLeader != null)
+					closestLeader.GetComponent<Monster> ().agent.SetDestination (player.transform.position);
 			}
 			if (other.tag == "FireTrap") {
 				health -= 10;

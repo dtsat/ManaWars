@@ -5,7 +5,7 @@ public class Crosshair : MonoBehaviour {
 
 	Vector3 mouseLook = new Vector3(0.0f, 0.0f, 10f);
 	Vector3 smooth;
-	private float sensitivity = 1f, smoothing = 2f;
+	private float sensitivity = 3f, smoothing = 2f;
 
 	public GameObject wizard;
 

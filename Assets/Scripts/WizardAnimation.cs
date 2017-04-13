@@ -17,6 +17,7 @@ public class WizardAnimation : MonoBehaviour {
             Movement();
             Jump();
             Fire();
+			Fire2 ();
         }
     }
 
@@ -46,6 +47,12 @@ public class WizardAnimation : MonoBehaviour {
 		bool fire = Input.GetMouseButtonDown (0);
 		animator.SetBool ("Fire", fire);
     }
+
+	void Fire2()
+	{
+		bool fire = Input.GetMouseButtonDown (1);
+		animator.SetBool ("Fire", fire);
+	}
 
     void Victory()
     {

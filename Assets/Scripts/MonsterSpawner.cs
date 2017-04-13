@@ -30,7 +30,7 @@ public class MonsterSpawner : MonoBehaviour {
         fromSpawnDestinations[0] = transform.Find("D1").position;
         fromSpawnDestinations[1] = transform.Find("D2").position;
         fromSpawnDestinations[2] = transform.Find("D3").position;
-        Debug.Log("MonsterSpawner: " + fromSpawnDestinations[0] + " | " + fromSpawnDestinations[1] + " | " + fromSpawnDestinations[2]);
+        //Debug.Log("MonsterSpawner: " + fromSpawnDestinations[0] + " | " + fromSpawnDestinations[1] + " | " + fromSpawnDestinations[2]);
 
         spawnBoss();    // Initial enemies
         spawnMeleeMinion();
@@ -62,18 +62,18 @@ public class MonsterSpawner : MonoBehaviour {
             minionsInScene = GameObject.FindGameObjectsWithTag("MobRanged").Length
                 + GameObject.FindGameObjectsWithTag("MobMelee").Length;
 
-            Debug.Log("EnemySpawning: bossesInScene = " + bossesInScene + " | " + "maxBosses: " + maxBosses);
-            Debug.Log("EnemySpawning: minionsInScene = " + minionsInScene + " | " + "maxMinions: " + maxMinions);
+            //Debug.Log("EnemySpawning: bossesInScene = " + bossesInScene + " | " + "maxBosses: " + maxBosses);
+            //Debug.Log("EnemySpawning: minionsInScene = " + minionsInScene + " | " + "maxMinions: " + maxMinions);
             if (bossesInScene < maxBosses)
             {
-                Debug.Log("Spawning boss");
+                //Debug.Log("Spawning boss");
                 spawnBoss();
             }
 
 
             if (minionsInScene < maxMinions)
             {
-                Debug.Log("Spawning minions");
+                //Debug.Log("Spawning minions");
                 float f = Random.Range(0, 2);
                 if (f == 0)
                 {
@@ -117,7 +117,7 @@ public class MonsterSpawner : MonoBehaviour {
     {
         GameObject spawnedEnemy = Instantiate(bossMonster, bossSpawnPos, Quaternion.identity) as GameObject;
         int f = Random.Range(0, 3);
-        Debug.Log("Boss f: " + f);
+        //Debug.Log("Boss f: " + f);
         if (f == 0)
             StartCoroutine(spawnedEnemy.GetComponent<Monster>().MoveFromSpawn(fromSpawnDestinations[0]));
         else if (f == 1)
