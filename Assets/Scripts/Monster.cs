@@ -160,7 +160,7 @@ public class Monster : MonoBehaviour {
 
         //Debug.Log("MoveFromSpawn agent for " + name + ": " + agent.destination.x + " " + agent.destination.y + " " + agent.destination.z);
 
-		while ((target - transform.position).magnitude > 50f)
+		while ((target - transform.position).magnitude > 20f)
         {
 			yield return null;
         }
@@ -387,7 +387,7 @@ public class Monster : MonoBehaviour {
 
 					if (distToPlayer <= 20 && angle >= 0.5f) {
 						//Debug.Log ("I SEE YOU, PLAYER!");
-						StartCoroutine(Steering(25f, 5f, 200f));
+						StartCoroutine(Steering(15f, 5f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}

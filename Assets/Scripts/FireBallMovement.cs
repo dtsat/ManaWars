@@ -10,7 +10,7 @@ public class FireBallMovement : MonoBehaviour {
 	private Transform target;
 	private RaycastHit hit;
 	private Rigidbody rb;
-	LayerMask lm = ~(1 << 8);
+	LayerMask lm = ~(1 << 10);
 
 	public AudioSource BoomSound;
 	public AudioSource FwooshSound;
