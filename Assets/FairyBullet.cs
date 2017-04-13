@@ -20,13 +20,14 @@ public class FairyBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 
 	public void SetTarget(GameObject t){
 		target = t;
 
-		targetNode.transform.position = target.transform.position;
+		//targetNode.transform.position = target.transform.position;
+
+		targetNode.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
 
 	}
 	
@@ -58,10 +59,7 @@ public class FairyBullet : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter(Collider other){
-		if (other.tag == "Enemy") {
-			Debug.Log ("HIT!!!!");
-			Destroy (other.gameObject);
-			//Destroy (targetNode);
+		if (other.tag == "MobLeader" || other.tag == "MobRanged" || other.tag == "MobMelee") {
 			Destroy (gameObject);
 		}
 	}

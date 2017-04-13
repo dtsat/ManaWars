@@ -7,7 +7,9 @@ public class FairyMagic : MonoBehaviour {
 
 	public GameObject Wizard;
 
-	public Vector3 wizPosition;
+    GameObject healthBar;
+
+    public Vector3 wizPosition;
 	public Quaternion wizRotation;
 	float distFromWiz;
 	public GameObject Shield;
@@ -23,14 +25,21 @@ public class FairyMagic : MonoBehaviour {
 
 	public float fairyshieldtimer = 10f;
 
+	public AudioSource ShieldSound;
+	public AudioSource ShootSound;
+	public AudioSource SpeedSound;
+	public AudioSource HealSound;
+
 	// Use this for initialization
 	void Start () {
 
 		fairyshieldtimer = 10f;
-		//StartCoroutine(PresenceCheck());
-	}
+        healthBar = GameObject.FindGameObjectWithTag("HealthContainer");
 
-	IEnumerator PresenceCheck(){
+        //StartCoroutine(PresenceCheck());
+    }
+
+    IEnumerator PresenceCheck(){
 
 		yield return new WaitForSeconds (1f);
 	}
@@ -40,15 +49,13 @@ public class FairyMagic : MonoBehaviour {
 
 		distFromWiz = (WizardPos.transform.position - transform.position).magnitude;
 
-		if (distFromWiz <= 5) {
+		if (distFromWiz <= 6f) {
 			if (fairyshieldtimer < 10) {
 				fairyshieldtimer += (Time.deltaTime) * 1;
 			}
 		}
-
-
-
-		if (fairyshieldtimer >= 10) {
+			
+		if (fairyshieldtimer >= 10 && distFromWiz <= 5f) {
 			fairyshieldtimer = 10;
 			//if ( enemyspell is nearby){
 			//}
@@ -62,6 +69,7 @@ public class FairyMagic : MonoBehaviour {
 
 			while (i < hitColliders.Length) {
 				if (hitColliders [i].tag == "EnemySpell") {
+					ShieldSound.Play ();
 					Shield.transform.position = wizPosition;
 					Instantiate (Shield);
 					fairyshieldtimer -= 10;
@@ -74,11 +82,13 @@ public class FairyMagic : MonoBehaviour {
 			if (Wizard.GetComponent<Human_Wizard> ().health <= 50) {
 				i = 0;
 				while (i < hitColliders.Length) {
-					if (hitColliders [i].tag == "Enemy") {
+					if (hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader" || hitColliders [i].tag == "MobRanged") {
 						//Speedboost code here!
 
-						Wizard.GetComponent<Human_Wizard> ().speed = 10;
+						Wizard.GetComponent<Human_Wizard> ().speed = 16;
 						Wizard.GetComponent<Human_Wizard> ().isSpeedBoosted = true;
+
+						SpeedSound.Play ();
 
 						SpeedEffect.transform.position = wizPosition;
 						Instantiate (SpeedEffect);
@@ -89,16 +99,19 @@ public class FairyMagic : MonoBehaviour {
 					i++;
 				}
 			} else {
-				Collider[] ShotTargetCollider = Physics.OverlapSphere (wizPosition, 6f);
+				Collider[] ShotTargetCollider = Physics.OverlapSphere (wizPosition, 15f);
 				int j = 0;
 
 				while (j < ShotTargetCollider.Length) {
-					if (ShotTargetCollider [j].tag == "Enemy") {
+		
+					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee" || ShotTargetCollider [j].tag == "MobLeader") {
 						FairyShot.transform.position = transform.position;
+		
+						ShootSound.Play ();
 						Instantiate (FairyShot);
 						FairyShot.GetComponent<FairyBullet>().SetTarget(ShotTargetCollider[j].gameObject);
 						fairyshieldtimer -= 3;
-						j = hitColliders.Length;
+						j = ShotTargetCollider.Length;
 
 					}
 					j++;
@@ -109,9 +122,11 @@ public class FairyMagic : MonoBehaviour {
 				if(Wizard.GetComponent<Human_Wizard>().health < 100 && Wizard.GetComponent<Human_Wizard>().health > 0)
                 {
 					Wizard.GetComponent<Human_Wizard>().health += 5;
+                    healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
 
-					offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
+                    offsetHeal = new Vector3 (wizPosition.x, wizPosition.y + 2f, wizPosition.z);
 
+					HealSound.Play ();
 					FairyHeal.transform.position = offsetHeal;
 					Instantiate (FairyHeal);
 

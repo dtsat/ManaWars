@@ -6,6 +6,7 @@ public class LoadGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = true;
 	
 	}
 	
@@ -18,6 +19,12 @@ public class LoadGame : MonoBehaviour {
     {
         SceneManager.LoadScene(1);
     }
+
+	public void LoadControls()
+	{
+		//SceneManager.LoadScene(1);
+		SceneManager.LoadScene(3);
+	}
 
     public void ExitGame()
     {
