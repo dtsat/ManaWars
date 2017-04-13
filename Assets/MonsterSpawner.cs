@@ -6,7 +6,6 @@ public class MonsterSpawner : MonoBehaviour {
     public GameObject bossMonster;
     public GameObject rangedMinion;
     public GameObject meleeMinion;
-    public float respawnFactor; // higher means more monster spawns
 
     private Vector3 bossSpawnPos;
     private Vector3 minionSpawnPos;
