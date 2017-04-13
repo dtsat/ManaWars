@@ -212,6 +212,16 @@ public class Monster : MonoBehaviour {
 			}
 		}
 
+		if (!isInScene) {
+			distToPlayer = (player.transform.position - transform.position).magnitude;
+			float angle2 = Vector3.Dot ((player.transform.position - transform.position).normalized, transform.forward);
+			if (distToPlayer <= 10f && angle2 >= 0.5f) {
+				isInScene = true;
+			}
+		}
+				
+			
+
 		if(health > 0 && isInScene)
         {
             if (tag == "MobLeader")
@@ -387,7 +397,7 @@ public class Monster : MonoBehaviour {
 
 					if (distToPlayer <= 20 && angle >= 0.5f) {
 						//Debug.Log ("I SEE YOU, PLAYER!");
-						StartCoroutine(Steering(15f, 5f, 200f));
+						StartCoroutine(Steering(10f, 2f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
@@ -400,9 +410,9 @@ public class Monster : MonoBehaviour {
 
 					float distFromLeader = (player.transform.position - closestLeader.gameObject.transform.position).magnitude;
 
-					if (distFromLeader <= 20 && angle >= 0.5f) {
+					if ((distFromLeader <= 20 && angle >= 0.5f) || (distToPlayer <= 20 && angle >= 0.5f)  ) {
 						//Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
-						StartCoroutine(Steering(25f, 5f, 200f));
+						StartCoroutine(Steering(10f, 2f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}

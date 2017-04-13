@@ -57,7 +57,7 @@ public class Score : MonoBehaviour {
 
     void Update()
     {
-        if (score >= 100)
+        if (score >= 500)
         {
             SceneManager.LoadSceneAsync(4);
         }

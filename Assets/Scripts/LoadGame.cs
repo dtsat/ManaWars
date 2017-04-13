@@ -17,13 +17,13 @@ public class LoadGame : MonoBehaviour {
 
     public void LoadMainGame()
     {
-        SceneManager.LoadScene(1);
+		SceneManager.LoadSceneAsync(1);
     }
 
 	public void LoadControls()
 	{
 		//SceneManager.LoadScene(1);
-		SceneManager.LoadScene(3);
+		SceneManager.LoadSceneAsync(3);
 	}
 
     public void ExitGame()

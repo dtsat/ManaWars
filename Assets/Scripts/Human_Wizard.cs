@@ -63,7 +63,7 @@ public class Human_Wizard : AbstractCharacter {
 				DeadSound.Play ();
                 PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
                 PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
-                SceneManager.LoadScene(2);
+				SceneManager.LoadSceneAsync(2);
                 gameObject.GetComponent<Animator>().SetTrigger("Death");
             }
             Destroy(other.gameObject);
@@ -84,7 +84,7 @@ public class Human_Wizard : AbstractCharacter {
 				DeadSound.Play ();
 				PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
 				PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
-				SceneManager.LoadScene(2);
+				SceneManager.LoadSceneAsync(2);
 				gameObject.GetComponent<Animator>().SetTrigger("Death");
 			}
 		}
@@ -104,7 +104,7 @@ public class Human_Wizard : AbstractCharacter {
 				DeadSound.Play ();
 				PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
 				PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
-				SceneManager.LoadScene(2);
+				SceneManager.LoadSceneAsync(2);
 				gameObject.GetComponent<Animator>().SetTrigger("Death");
 			}
 		}
@@ -123,7 +123,7 @@ public class Human_Wizard : AbstractCharacter {
 			{
                 PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
                 PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
-                SceneManager.LoadScene(2);
+				SceneManager.LoadSceneAsync(2);
                 gameObject.GetComponent<Animator>().SetTrigger("Death");
 			}
 			Destroy(other.gameObject);
@@ -140,6 +140,8 @@ public class Human_Wizard : AbstractCharacter {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.D))
             transform.Translate(Vector3.right * speed * Time.deltaTime);
+		if (Input.GetKey (KeyCode.Escape))
+			SceneManager.LoadSceneAsync (0);
 		/*if (Input.mousePosition.x > screenWidth / 2)
             transform.Rotate(new Vector3(0.0f, 5f, 0.0f));
 		if (Input.mousePosition.x < screenWidth / 2)
