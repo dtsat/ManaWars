@@ -45,32 +45,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ControlCameraChanger.cs" />
-     <Compile Include="Assets\FairyBullet.cs" />
-     <Compile Include="Assets\Ground.cs" />
-     <Compile Include="Assets\MonsterBullet.cs" />
      <Compile Include="Assets\Scripts\AbstractCharacter.cs" />
+     <Compile Include="Assets\Scripts\BossSpawner.cs" />
      <Compile Include="Assets\Scripts\CompanionFollow.cs" />
+     <Compile Include="Assets\Scripts\ControlCameraChanger.cs" />
      <Compile Include="Assets\Scripts\Crosshair.cs" />
+     <Compile Include="Assets\Scripts\FairyBullet.cs" />
      <Compile Include="Assets\Scripts\FairyMagic.cs" />
      <Compile Include="Assets\Scripts\FairyShield.cs" />
      <Compile Include="Assets\Scripts\FinalScore.cs" />
      <Compile Include="Assets\Scripts\FireBallMovement.cs" />
      <Compile Include="Assets\Scripts\FireSpell.cs" />
+     <Compile Include="Assets\Scripts\Ground.cs" />
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Human_Wizard.cs" />
      <Compile Include="Assets\Scripts\LifetimeObject.cs" />
      <Compile Include="Assets\Scripts\LoadGame.cs" />
+     <Compile Include="Assets\Scripts\ManaBar.cs" />
      <Compile Include="Assets\Scripts\Monster.cs" />
+     <Compile Include="Assets\Scripts\MonsterBullet.cs" />
+     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
      <Compile Include="Assets\Scripts\ParticleAutoDestroy.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
+     <Compile Include="Assets\Scripts\SimpleMove.cs" />
      <Compile Include="Assets\Scripts\Spell.cs" />
      <Compile Include="Assets\Scripts\TestBullet.cs" />
      <Compile Include="Assets\Scripts\Test_Spell.cs" />
      <Compile Include="Assets\Scripts\WizardAnimation.cs" />
+     <Compile Include="Assets\Scripts\WizardStats.cs" />
      <Compile Include="Assets\Scripts\floorFlame.cs" />
-     <Compile Include="Assets\SimpleMove.cs" />
-     <Compile Include="Assets\WizardStats.cs" />
+     <Compile Include="Assets\VictoryWizard.cs" />
      <None Include="Assets\Models\Battleground Forest\Read me.txt" />
      <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
      <None Include="Assets\Models\Toon Wizard\Read me.txt" />

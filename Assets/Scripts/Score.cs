@@ -4,8 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour {
-    Text textBox;
-    Human_Wizard player;
+    public Text textBox;
+    public Human_Wizard player;
     public int score = 0;
     public int livingMobs = 0;
     GameObject[] LeaderMobs;
