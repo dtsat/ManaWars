@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour {
     GameObject score;
 
 	bool isDead = false;
+    bool isInScene = false;
 
 	//AI variables
 	float distToPlayer;
@@ -40,6 +41,7 @@ public class Monster : MonoBehaviour {
         animator = gameObject.GetComponent<Animator>();
         health = 100;
         score = GameObject.FindGameObjectWithTag("Score");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (tag == "MobLeader")
         {
@@ -70,9 +72,23 @@ public class Monster : MonoBehaviour {
 
 	}
 
+    public IEnumerator MoveFromSpawn(Vector3 target)
+    {
+        yield return new WaitForSeconds(0.5f);
+        isInScene = false;
+        agent.SetDestination(target);
+        Debug.Log("MoveFromSpawn agent for " + name + ": " + agent.destination.x + " " + agent.destination.y + " " + agent.destination.z);
+
+        while (agent.remainingDistance > 200)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        isInScene = true;
+    }
+
     // Update is called once per frame
     void Update() {
-        if(health > 0)
+        if(health > 0 && isInScene)
         {
             if (tag == "MobLeader")
             {
