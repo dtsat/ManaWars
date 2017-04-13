@@ -71,7 +71,7 @@ public class Human_Wizard : AbstractCharacter {
 
 		if (other.tag == "MobMelee")
 		{
-			health -= 5;
+			health -= 1;
 			score.GetComponent<Score>().UpdateHealth();
 			healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
 			if (health > 0)

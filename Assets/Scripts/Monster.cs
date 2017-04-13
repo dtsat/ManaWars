@@ -126,6 +126,7 @@ public class Monster : MonoBehaviour {
 
 	void ResetSpeed()
 	{
+		animator.speed = 1;
 		agent.speed = 3.5f;
 		agent.acceleration = 8f;
 		agent.angularSpeed = 120f;
@@ -142,6 +143,7 @@ public class Monster : MonoBehaviour {
 
 	IEnumerator Steering(float speed, float accel, float angular)
 	{
+		animator.speed = 3;
 		agent.speed = speed;
 		agent.acceleration = accel;
 		agent.angularSpeed = angular;
@@ -181,6 +183,7 @@ public class Monster : MonoBehaviour {
 			if (leaderScript != null) 
 			{
 				leaderScript.openSlots [slotCount] = null;
+				leaderScript.slotCount++;
 			}
 			Destroy (gameObject, 2f);
 		}
@@ -384,7 +387,7 @@ public class Monster : MonoBehaviour {
 
 					if (distToPlayer <= 20 && angle >= 0.5f) {
 						//Debug.Log ("I SEE YOU, PLAYER!");
-						StartCoroutine(Steering(50f, 10f, 200f));
+						StartCoroutine(Steering(25f, 5f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
@@ -399,7 +402,7 @@ public class Monster : MonoBehaviour {
 
 					if (distFromLeader <= 20 && angle >= 0.5f) {
 						//Debug.Log ("RAWR LEADER ASK ME TO CHASE YOU!");
-						StartCoroutine(Steering(50f, 10f, 200f));
+						StartCoroutine(Steering(25f, 5f, 200f));
 						agent.SetDestination(player.transform.position);
 						//chase player
 					}
