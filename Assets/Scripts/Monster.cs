@@ -166,6 +166,26 @@ public class Monster : MonoBehaviour {
 
     }
 
+	void DespawnAfterDeath()
+	{
+		if (tag == "MobLeader") {
+			foreach (GameObject o in openSlots) 
+			{
+				if (o == null)
+					continue;
+				o.GetComponent<Monster> ().inGroup = false;
+			}
+			Destroy (gameObject, 2f);
+		} else 
+		{
+			if (leaderScript != null) 
+			{
+				leaderScript.openSlots [slotCount] = null;
+			}
+			Destroy (gameObject, 2f);
+		}
+	}
+
     // Update is called once per frame
     void Update() {
 		if (agent.velocity.magnitude > 0)
@@ -173,8 +193,10 @@ public class Monster : MonoBehaviour {
 		else
 			animator.SetBool ("Walk", false);
 
-		if (isDead) {
-			if (deathSinkTimer > -6f) {
+		if (isDead) 
+		{
+			if (deathSinkTimer > -6f) 
+			{
 				
 				deathSinkTimer -= (Time.deltaTime) * 0.5f;
 				deathOffset = new Vector3 (transform.position.x, transform.position.y + deathSinkTimer, transform.position.z);
@@ -183,6 +205,7 @@ public class Monster : MonoBehaviour {
 
 			} else {
 				transform.position = deathOffset;
+				DespawnAfterDeath ();
 			}
 		}
 
@@ -433,7 +456,9 @@ public class Monster : MonoBehaviour {
         Vector3 position = transform.position;
         foreach (GameObject go in openSlots)
         {
-            Vector3 diff = go.transform.position - position;
+			if (go == null)
+				continue;
+			Vector3 diff = go.transform.position - position;
             distance += diff.sqrMagnitude;
         }
 

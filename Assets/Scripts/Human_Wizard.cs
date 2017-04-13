@@ -69,6 +69,26 @@ public class Human_Wizard : AbstractCharacter {
             Destroy(other.gameObject);
         }
 
+		if (other.tag == "MobMelee")
+		{
+			health -= 5;
+			score.GetComponent<Score>().UpdateHealth();
+			healthBar.transform.GetChild(0).GetComponent<HealthBar>().updateHealthBar();
+			if (health > 0)
+			{
+				HurtSound.Play ();
+				gameObject.GetComponent<Animator>().SetTrigger("Damaged");
+			}
+			else
+			{
+				DeadSound.Play ();
+				PlayerPrefs.SetFloat("Score", score.GetComponent<Score>().score);
+				PlayerPrefs.SetFloat("MobsRemaining", score.GetComponent<Score>().livingMobs);
+				SceneManager.LoadScene(2);
+				gameObject.GetComponent<Animator>().SetTrigger("Death");
+			}
+		}
+
 		if (other.tag == "MeleeAttack")
 		{
 			other.GetComponentInChildren<Collider> ().enabled = false;
