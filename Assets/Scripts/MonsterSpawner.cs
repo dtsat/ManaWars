@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MonsterSpawner : MonoBehaviour {
 
+    public Score guiDisplay;
     public GameObject bossMonster;
     public GameObject rangedMinion;
     public GameObject meleeMinion;
@@ -92,6 +93,7 @@ public class MonsterSpawner : MonoBehaviour {
     private void spawnRangedMinion()
     {
         GameObject spawnedEnemy = Instantiate(rangedMinion, minionSpawnPos, Quaternion.identity) as GameObject;
+        guiDisplay.IncreaseMobCount();
         float f = Random.Range(0, 3);
         if (f < 0.33f)
             StartCoroutine(spawnedEnemy.GetComponent<Monster>().MoveFromSpawn(fromSpawnDestinations[0]));
@@ -104,6 +106,7 @@ public class MonsterSpawner : MonoBehaviour {
     private void spawnMeleeMinion()
     {
         GameObject spawnedEnemy = Instantiate(meleeMinion, minionSpawnPos, Quaternion.identity) as GameObject;
+        guiDisplay.IncreaseMobCount();
         float f = Random.Range(0, 3);
         if (f < 0.33f)
             StartCoroutine(spawnedEnemy.GetComponent<Monster>().MoveFromSpawn(fromSpawnDestinations[0]));
@@ -116,6 +119,7 @@ public class MonsterSpawner : MonoBehaviour {
     private void spawnBoss()
     {
         GameObject spawnedEnemy = Instantiate(bossMonster, bossSpawnPos, Quaternion.identity) as GameObject;
+        guiDisplay.IncreaseMobCount();
         int f = Random.Range(0, 3);
         //Debug.Log("Boss f: " + f);
         if (f == 0)

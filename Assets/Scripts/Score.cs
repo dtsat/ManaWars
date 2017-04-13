@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour {
     Text textBox;
@@ -13,7 +14,7 @@ public class Score : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        textBox = gameObject.GetComponent<Text>();
+        textBox = GetComponent<Text>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Human_Wizard>();
         LeaderMobs = GameObject.FindGameObjectsWithTag("MobLeader");
         RangedMobs = GameObject.FindGameObjectsWithTag("MobRanged");
@@ -52,5 +53,13 @@ public class Score : MonoBehaviour {
     public void UpdateHealth()
     {
         textBox.text = "Score - " + score + "\nHealth - " + player.health + "\nNumber of Living Mobs - " + livingMobs;
+    }
+
+    void Update()
+    {
+        if (score >= 100)
+        {
+            SceneManager.LoadSceneAsync(4);
+        }
     }
 }
