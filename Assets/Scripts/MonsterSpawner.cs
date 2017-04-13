@@ -48,9 +48,11 @@ public class MonsterSpawner : MonoBehaviour {
 
         /* These values control what the max number of each enemy type in the scene is.
         Increases over time */
-
-        maxBosses = 1 + ((int)timeSinceGameStart / 25); // Allows an additional boss every 15 seconds
-        maxMinions = 2 + ((int)timeSinceGameStart / 10); // Allows an additional small minion every 8 seconds
+        if (maxBosses + maxMinions < 12)
+        {
+            maxBosses = 1 + ((int)timeSinceGameStart / 25); // Allows an additional boss every 15 seconds
+            maxMinions = 2 + ((int)timeSinceGameStart / 10); // Allows an additional small minion every 8 seconds
+        }
     }
 
     // Runs every 10 seconds. Spawns in enemies if there is room for more according to 
