@@ -15,7 +15,7 @@ public class Monster : MonoBehaviour {
     Animator animator;
     GameObject score;
 
-	bool isDead = false;
+	public bool isDead = false;
     bool isInScene = false;
 
 	//AI variables
@@ -123,11 +123,13 @@ public class Monster : MonoBehaviour {
 		if (isDead) {
 			if (deathSinkTimer > -6f) {
 				
-			deathSinkTimer -= (Time.deltaTime) * 0.5f;
-			deathOffset = new Vector3 (transform.position.x, transform.position.y + deathSinkTimer, transform.position.z);
+				deathSinkTimer -= (Time.deltaTime) * 0.5f;
+				deathOffset = new Vector3 (transform.position.x, transform.position.y + deathSinkTimer, transform.position.z);
 
-			transform.position = deathOffset;
+				transform.position = deathOffset;
 
+			} else {
+				transform.position = deathOffset;
 			}
 		}
 

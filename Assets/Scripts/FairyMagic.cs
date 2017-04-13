@@ -82,7 +82,7 @@ public class FairyMagic : MonoBehaviour {
 			if (Wizard.GetComponent<Human_Wizard> ().health <= 50) {
 				i = 0;
 				while (i < hitColliders.Length) {
-					if (hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader" || hitColliders [i].tag == "MobRanged") {
+					if ((hitColliders [i].tag == "MobMelee" || hitColliders [i].tag == "MobLeader" || hitColliders [i].tag == "MobRanged") && hitColliders[i].GetComponent<Monster>().isDead == false) {
 						//Speedboost code here!
 
 						Wizard.GetComponent<Human_Wizard> ().speed = 16;
@@ -104,7 +104,7 @@ public class FairyMagic : MonoBehaviour {
 
 				while (j < ShotTargetCollider.Length) {
 		
-					if (ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee" || ShotTargetCollider [j].tag == "MobLeader") {
+					if ((ShotTargetCollider [j].tag == "MobRanged" || ShotTargetCollider [j].tag == "MobMelee" || ShotTargetCollider [j].tag == "MobLeader") && ShotTargetCollider[j].GetComponent<Monster>().isDead == false) {
 						FairyShot.transform.position = transform.position;
 		
 						ShootSound.Play ();
